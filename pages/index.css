@@ -1,3 +1,27 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
+
 @import url(../blocks/page/page.css);
+
 @import url(../blocks/header/header.css);
 @import url(../blocks/logo/_place_header/logo__place_header.css);
+
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__username/profile__username.css);
+@import url(../blocks/profile/__employment/profile__employment.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__info/card__info.css);
+@import url(../blocks/card/__mesto/card__mesto.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_karachaevsk.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_elbrus.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_dombai.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_elton.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_krasnoyarsk.css);
+@import url(../blocks/card/_mesto-background/card_mesto-background_petropavlovsk.css);
+
+@import url(../blocks/footer/footer.css);

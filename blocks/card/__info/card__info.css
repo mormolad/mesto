@@ -1,0 +1,7 @@
+.card__info {
+    margin: auto 20px 26px 21px;
+
+    display: inline-flex;
+    align-content: flex-end;
+    justify-content: space-between;
+}
