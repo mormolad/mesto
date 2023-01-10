@@ -7,3 +7,10 @@
   background-color: black;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 }
+
+@media screen and (max-width: 1023px) {
+  .page {
+    grid-template-columns: 320px;
+
+  }
+}

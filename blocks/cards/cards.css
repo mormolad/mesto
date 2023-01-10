@@ -2,5 +2,13 @@
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px 17px;
+    grid-gap: 20px 18px;
+}
+
+@media screen and (max-width: 1023px) {
+    .cards {
+        grid-template-columns: 282px;
+        justify-content: center;
+
+    }
 }

@@ -1,3 +1,11 @@
 .profile__info {
     color: #ffffff;
+    margin-right: 244px;
+}
+
+@media screen and (max-width: 1023px) {
+    .profile__info {
+
+        margin: 0;
+    }
 }

@@ -12,6 +12,8 @@
 @import url(../blocks/profile/__username/profile__username.css);
 @import url(../blocks/profile/__employment/profile__employment.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+
 
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
@@ -23,5 +25,7 @@
 @import url(../blocks/card/_mesto-background/card_mesto-background_elton.css);
 @import url(../blocks/card/_mesto-background/card_mesto-background_krasnoyarsk.css);
 @import url(../blocks/card/_mesto-background/card_mesto-background_petropavlovsk.css);
+@import url(../blocks/card/__like/card__like.css);
 
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
