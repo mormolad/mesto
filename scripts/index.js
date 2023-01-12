@@ -9,21 +9,26 @@ let employmentPopup = document.querySelector('#popup__employment');
 let submitPopup = document.querySelector('#popup__submit');
 let closePopup = document.querySelector('#popup__close');
 
-
 editButtom.addEventListener('click', showPopup);
 closePopup.addEventListener('click', closingPopup);
-
-
+submitPopup.addEventListener('click', submitingPopup);
 
 function showPopup() {
-    usernamePopup.value = username.textContent;
-    employmentPopup.value = employment.textContent;
-    popup.classList.toggle('popup_disable');
-    popup.classList.toggle('popup_enable');
+  usernamePopup.value = username.textContent;
+  employmentPopup.value = employment.textContent;
+  popup.classList.toggle('popup_enable');
+  popup.classList.toggle('popup_disable');
 }
 
-
 function closingPopup() {
-    popup.classList.toggle('popup_disable');
-    popup.classList.toggle('popup_enable');
+  popup.classList.toggle('popup_enable');
+  popup.classList.toggle('popup_disable');
+}
+
+function submitingPopup() {
+  //   submitPopup.preventDefault();
+  username.textContent = usernamePopup.value;
+  employment.textContent = employmentPopup.value;
+  popup.classList.toggle('popup_disable');
+  popup.classList.toggle('popup_enable');
 }

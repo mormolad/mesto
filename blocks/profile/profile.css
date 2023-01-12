@@ -1,7 +1,9 @@
 .profile {
     margin: 36px 0 51px 0;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 150px 580px 150px;
+
 
 }
 
@@ -10,8 +12,8 @@
     .profile {
         display: grid;
         justify-items: center;
-
-
+        grid-template-columns: 282px;
+        justify-content: center;
         margin-bottom: 36px;
     }
 }

@@ -1,20 +1,10 @@
 .popup {
-<<<<<<< HEAD
-  display: none;
-  /*  flex; */
-  justify-content: center;
-  align-items: center;
 
-=======
->>>>>>> 06edb730a06d60f6fb9859b62ec0f79fe0fbabde
   width: 100%;
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
   position: fixed;
-<<<<<<< HEAD
-=======
   justify-content: center;
->>>>>>> 06edb730a06d60f6fb9859b62ec0f79fe0fbabde
 }
