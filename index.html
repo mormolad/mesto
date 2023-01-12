@@ -15,7 +15,7 @@
 
 <body class="page">
     <header class="header">
-        <img src="./images/logo-header.svg" class="logo__place_header">
+        <img src="./images/logo-header.svg" class="logo logo_place_header" alt="логотип сайта">
     </header>
     <main class="content">
         <section class="profile">
@@ -33,37 +33,37 @@
         <section class="cards">
             <div class="card card_mesto-background_karachaevsk">
                 <div class="card__info">
-                    <p class="card__mesto">Карачаево-Черкеск</p>
+                    <h2 class="card__mesto">Карачаево-Черкеск</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card_karachaevsk" class="card__like">
                 </div>
             </div>
             <div class="card card_mesto-background_elbrus">
                 <div class="card__info">
-                    <p class="card__mesto">Гора Эльбрус</p>
+                    <h2 class="card__mesto">Гора Эльбрус</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card_elbrus" class="card__like">
                 </div>
             </div>
             <div class="card card_mesto-background_dombai">
                 <div class="card__info">
-                    <p class="card__mesto">Домбай</p>
+                    <h2 class="card__mesto">Домбай</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card_dombai" class="card__like">
                 </div>
             </div>
             <div class="card card_mesto-background_krasnoyarsk">
                 <div class="card__info">
-                    <p class="card__mesto">Красноярск</p>
+                    <h2 class="card__mesto">Красноярск</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card_krasnoyarsk" class="card__like">
                 </div>
             </div>
             <div class="card card_mesto-background_petropavlovsk">
                 <div class="card__info">
-                    <p class="card__mesto">Петропаловск-Камчатский</p>
+                    <h2 class="card__mesto">Петропаловск-Камчатский</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card_petropavlovsk" class="card__like">
                 </div>
             </div>
             <div class="card card_mesto-background_elton">
                 <div class="card__info">
-                    <p class="card__mesto">Эльтон</p>
+                    <h2 class="card__mesto">Эльтон</h2>
                     <img src="./images/like_disabled.svg" alt="лайк" id="card__elton" class="card__like">
                 </div>
             </div>
@@ -73,14 +73,14 @@
         <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
     <div class="popup popup_disable" id="popup">
-        <div class="popup__content">
+        <form class="popup__content">
             <p class="popup__title" id="popup-title">Редактировать профиль</p>
             <input type="text" value="no577ne" class="popup__field" id="popup__username">
             <input type="text" value="no5555ne" class="popup__field" id="popup__employment">
             <input type="submit" value="Сохранить" class="popup__submit" id="popup__submit">
             <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" class="popup__close"
                 id="popup__close">
-        </div>
+        </form>
 
     </div>
     <script type="module" src="./scripts/index.js"></script>

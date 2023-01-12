@@ -25,8 +25,10 @@ function closingPopup() {
   popup.classList.toggle('popup_disable');
 }
 
-function submitingPopup() {
-  //   submitPopup.preventDefault();
+function submitingPopup(submitPopup) {
+  submitPopup.preventDefault();
+
+  console.log(username.textContent);
   username.textContent = usernamePopup.value;
   employment.textContent = employmentPopup.value;
   popup.classList.toggle('popup_disable');
