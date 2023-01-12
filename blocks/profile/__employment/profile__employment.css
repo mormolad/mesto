@@ -1,4 +1,6 @@
 .profile__employment {
+    max-width: 400px;
+
     margin: 0;
 
     font-weight: 400;

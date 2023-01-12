@@ -9,13 +9,15 @@ let employmentPopup = document.querySelector('#popup__employment');
 let submitPopup = document.querySelector('#popup__submit');
 let closePopup = document.querySelector('#popup__close');
 
+console.log(username.style);
+
 editButtom.addEventListener('click', showPopup);
 closePopup.addEventListener('click', closingPopup);
 submitPopup.addEventListener('click', submitingPopup);
 
 function showPopup() {
-  usernamePopup.value = username.textContent;
-  employmentPopup.value = employment.textContent;
+  usernamePopup.placeholder = username.textContent;
+  employmentPopup.placeholder = employment.textContent;
   popup.classList.toggle('popup_enable');
   popup.classList.toggle('popup_disable');
 }
