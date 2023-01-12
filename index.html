@@ -21,9 +21,12 @@
         <section class="profile">
             <img src="./images/avatar.jpg" alt="фото пользователя" class="profile__avatar">
             <div class="profile__info">
-                <h1 class="profile__username">Жак-Ив Кусто<img src="./images/edit-button.svg"
-                        alt="кновпа редактирования профиля" class="profile__edit-button"></h1>
-                <p class="profile__employment">Исследователь океана</p>
+                <div class="profile__name-edit">
+                    <h1 class="profile__username" id="profile__username">Жак-Ив Кусто</h1><img
+                        src="./images/edit-button.svg" alt="кновпа редактирования профиля" class="profile__edit-button"
+                        id="profile__edit-button">
+                </div>
+                <p class="profile__employment" id="profile__employment">Исследователь океана</p>
             </div>
             <div class="profile__add-button"><img src="./images/add_button.svg" alt="кнопка добавления мест"></div>
         </section>
@@ -69,14 +72,16 @@
     <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup" id="popup">
+    <div class="popup popup_disable" id="popup">
         <div class="popup__content">
             <p class="popup__title" id="popup-title">Редактировать профиль</p>
-            <input type="text" value="Жак-Ив Кусто" class="popup__field">
-            <input type="text" value="Исследователь океана" class="popup__field">
-            <input type="submit" value="Сохранить" class="popup__submit">
-            <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" class="popup__close">
+            <input type="text" value="no577ne" class="popup__field" id="popup__username">
+            <input type="text" value="no5555ne" class="popup__field" id="popup__employment">
+            <input type="submit" value="Сохранить" class="popup__submit" id="popup__submit">
+            <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" class="popup__close"
+                id="popup__close">
         </div>
 
     </div>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
