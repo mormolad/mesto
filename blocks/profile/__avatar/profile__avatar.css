@@ -10,5 +10,6 @@
 @media screen and (max-width: 1023px) {
     .profile__avatar {
         margin: 0 0 28px 0;
+        /* так вроде здесь низ правлю а там верх*/
     }
 }

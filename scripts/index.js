@@ -9,30 +9,28 @@ let employmentPopup = document.querySelector('#popup__employment');
 let submitPopup = document.querySelector('#popup__submit');
 let closePopup = document.querySelector('#popup__close');
 
-console.log(username.style);
-
 editButtom.addEventListener('click', showPopup);
 closePopup.addEventListener('click', closingPopup);
 submitPopup.addEventListener('click', submitingPopup);
 
 function showPopup() {
-  usernamePopup.placeholder = username.textContent;
-  employmentPopup.placeholder = employment.textContent;
-  popup.classList.toggle('popup_enable');
-  popup.classList.toggle('popup_disable');
+    usernamePopup.placeholder = username.textContent;
+    employmentPopup.placeholder = employment.textContent;
+    popup.style.display = 'flex';
 }
 
 function closingPopup() {
-  popup.classList.toggle('popup_enable');
-  popup.classList.toggle('popup_disable');
+    popup.style.display = 'none';
 }
 
-function submitingPopup(submitPopup) {
-  submitPopup.preventDefault();
-
-  console.log(username.textContent);
-  username.textContent = usernamePopup.value;
-  employment.textContent = employmentPopup.value;
-  popup.classList.toggle('popup_disable');
-  popup.classList.toggle('popup_enable');
+function submitingPopup(ivt) {
+    ivt.preventDefault();
+    if (usernamePopup.value !== '') {
+        username.textContent = usernamePopup.value;
+    }
+    if (employmentPopup.value !== '') {
+        console.log(employmentPopup.value)
+        employment.textContent = employmentPopup.value;
+    }
+    popup.style.display = 'none';
 }
