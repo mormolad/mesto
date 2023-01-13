@@ -1,5 +1,5 @@
 .card__mask-card {
     border-radius: 10px 10px 0px 0px;
 
-    grid-column: 1 / span 2
+    grid-column: 1 / span 2;
 }

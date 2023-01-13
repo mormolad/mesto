@@ -29,7 +29,6 @@ function submitingPopup(ivt) {
         username.textContent = usernamePopup.value;
     }
     if (employmentPopup.value !== '') {
-        console.log(employmentPopup.value)
         employment.textContent = employmentPopup.value;
     }
     popup.style.display = 'none';
