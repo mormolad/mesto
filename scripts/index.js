@@ -1,3 +1,5 @@
+'use strict';
+
 let editButtom = document.querySelector('#profile__edit-button');
 
 let username = document.querySelector('#profile__username');
