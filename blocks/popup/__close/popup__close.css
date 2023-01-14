@@ -1,7 +1,18 @@
 .popup__close {
-  position: relative;
-  bottom: 355px;
-  left: 240px;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background-color: rgba(0, 0, 0, 0);
+
+  opacity: 1;
+  transition: opacity 0.5s ease-out 0.2s;
+
+  border: none;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 
@@ -10,8 +21,7 @@
     width: 20px;
     height: 20px;
 
-    bottom: 355px;
-    left: 134px;
+    right: 0;
 
 
   }

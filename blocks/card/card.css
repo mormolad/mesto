@@ -1,11 +1,12 @@
 .card {
-    min-height: 361px;
     background-color: #ffffff;
     border-radius: 10px;
     background-repeat: no-repeat;
 
     display: grid;
-    align-self: end;
+
+    grid-template-columns: 242px 1fr;
+
 
     font-size: 24px;
     line-height: 29px;

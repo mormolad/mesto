@@ -15,75 +15,83 @@
 
 <body class="page">
     <header class="header">
-        <img src="./images/logo-header.svg" class="logo logo_place_header" alt="логотип сайта">
+        <img src="./images/logo-header.svg" class="header__logo" alt="логотип сайта">
     </header>
     <main class="content">
-        <section class="profile">
+        <section class="profile" title="коротко о пользователе: аватарка, имя, род деятельности">
             <img src="./images/avatar.jpg" alt="фото пользователя" class="profile__avatar">
             <div class="profile__info">
                 <div class="profile__name-edit">
-                    <h1 class="profile__username" id="profile__username">Жак-Ив Кусто</h1><img
-                        src="./images/edit-button.svg" alt="кновпа редактирования профиля" class="profile__edit-button"
+                    <h1 class="profile__username" id="profile__username" title="Имя пользователя">Жак-Ив Кусто</h1><img
+                        src="./images/edit-button.svg" alt="кнопка редактирования профиля" class="profile__edit-button"
                         id="profile__edit-button">
                 </div>
-                <p class="profile__employment" id="profile__employment">Исследователь океана</p>
+                <p class="profile__employment" id="profile__employment" title="род деятельности">Исследователь океана
+                </p>
             </div>
-            <div class="profile__add-button"><img src="./images/add_button.svg" alt="кнопка добавления мест"></div>
+            <button class="profile__add-button"><img src="./images/add_button.svg"
+                    alt="кнопка добавления мест"></button>
         </section>
-        <section class="cards">
-            <div class="card card_mesto-background_karachaevsk">
-                <div class="card__info">
+        <section>
+            <ul class="cards">
+                <li class="card">
+                    <img src="./images/karachaevsk.jpg" alt="фото Карачаевска" class="card__mask-card">
                     <h2 class="card__mesto">Карачаево-Черкеск</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card_karachaevsk" class="card__like">
-                </div>
-            </div>
-            <div class="card card_mesto-background_elbrus">
-                <div class="card__info">
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card_karachaevsk"></button>
+                </li>
+                <li class="card">
+                    <img src="./images/elbrus.jpg" alt="фотография горы Эльбрус" class="card__mask-card">
                     <h2 class="card__mesto">Гора Эльбрус</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card_elbrus" class="card__like">
-                </div>
-            </div>
-            <div class="card card_mesto-background_dombai">
-                <div class="card__info">
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card_elbrus"></button>
+                </li>
+                <li class="card">
+                    <img src="./images/dombai.jpg" alt="фотография гор Домбай" class="card__mask-card">
                     <h2 class="card__mesto">Домбай</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card_dombai" class="card__like">
-                </div>
-            </div>
-            <div class="card card_mesto-background_krasnoyarsk">
-                <div class="card__info">
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card_dombai"></button>
+                </li>
+                <li class="card">
+                    <img src="./images/krasnoyarsk.jpg" alt="фотография запаведника Столбы" class="card__mask-card">
                     <h2 class="card__mesto">Красноярск</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card_krasnoyarsk" class="card__like">
-                </div>
-            </div>
-            <div class="card card_mesto-background_petropavlovsk">
-                <div class="card__info">
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card_krasnoyarsk"></button>
+                </li>
+                <li class="card">
+                    <img src="./images/petropavlovsk1.jpg" alt="фото Петропавловска" class="card__mask-card">
                     <h2 class="card__mesto">Петропаловск-Камчатский</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card_petropavlovsk" class="card__like">
-                </div>
-            </div>
-            <div class="card card_mesto-background_elton">
-                <div class="card__info">
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card_petropavlovsk"></button>
+                </li>
+                <li class="card">
+                    <img src="./images/elton.jpg" alt="фото Эльтон" class="card__mask-card">
                     <h2 class="card__mesto">Эльтон</h2>
-                    <img src="./images/like_disabled.svg" alt="лайк" id="card__elton" class="card__like">
-                </div>
-            </div>
+                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
+                            id="card__elton"></button>
+                </li>
+            </ul>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup popup_disable" id="popup">
-        <form class="popup__content">
-            <p class="popup__title" id="popup-title">Редактировать профиль</p>
-            <input type="text" class="popup__field" id="popup__username" placeholder="Введите что-нибудь!">
-            <input type="text" class="popup__field" id="popup__employment" placeholder="Введите что-нибудь!2">
-            <input type="submit" value="Сохранить" class="popup__submit" id="popup__submit">
-            <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" class="popup__close"
-                id="popup__close">
+    <div class="popup" id="popup" title="модальное окно редактирования автора и его рода деятельности">
+        <form class="popup__content" name="form-popup">
+            <h3 class="popup__title" id="popup-title">Редактировать профиль</h3>
+            <input type="text" class="popup__field" id="popup__username" name="popup__username">
+            <input type="text" class="popup__field" id="popup__employment" name="popup__employment">
+            <button title="сохранить информацию о пользователе" class="popup__submit" id="popup__submit">
+                Сохранить</button>
+            <button title="закрыть модальное окно" class="popup__close-button">
+                <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" id="popup__close"
+                    class="popup__close"></button>
         </form>
 
+
+
     </div>
-    <script type="module" src="./scripts/index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

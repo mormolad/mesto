@@ -2,10 +2,13 @@
     margin: 20px 0 0 19px;
     align-self: center;
 
+    opacity: 1;
+    transition: opacity 0.5s ease-out 0.2s;
 }
 
 .profile__edit-button:hover {
     opacity: 0.6;
+    cursor: pointer;
 }
 
 
