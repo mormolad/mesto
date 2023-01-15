@@ -8,30 +8,28 @@ let employment = document.querySelector('#profile__employment');
 let popup = document.querySelector('#popup');
 let usernamePopup = document.querySelector('#popup__username');
 let employmentPopup = document.querySelector('#popup__employment');
-let submitPopup = document.querySelector('#popup__submit');
-let closePopup = document.querySelector('#popup__close');
+let submitPopup = document.querySelector('#popup__content');
+let closePopup = document.querySelector('#popup__close-popup');
 
 editButtom.addEventListener('click', showPopup);
 closePopup.addEventListener('click', closingPopup);
-submitPopup.addEventListener('click', submitingPopup);
+submitPopup.addEventListener('submit', submitingPopup);
 
 function showPopup() {
-    usernamePopup.placeholder = username.textContent;
-    employmentPopup.placeholder = employment.textContent;
-    popup.style.display = 'flex';
+  usernamePopup.value = username.textContent;
+  employmentPopup.value = employment.textContent;
+  popup.classList.add('popup_enable');
 }
 
 function closingPopup() {
-    popup.style.display = 'none';
+  popup.classList.remove('popup_enable');
 }
+function submitingPopup(evt) {
+  evt.preventDefault();
+  if (usernamePopup.value !== '' && employmentPopup.value !== '') {
+    username.textContent = usernamePopup.value;
+    employment.textContent = employmentPopup.value;
+  }
 
-function submitingPopup(ivt) {
-    ivt.preventDefault();
-    if (usernamePopup.value !== '') {
-        username.textContent = usernamePopup.value;
-    }
-    if (employmentPopup.value !== '') {
-        employment.textContent = employmentPopup.value;
-    }
-    popup.style.display = 'none';
+  closingPopup();
 }

@@ -2,96 +2,84 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--мета тег для адаптивности -->
-    <meta name="description" content="Портфолио Перевалова А.С. на Яндекс.Практикуме">
-    <meta name="keywords" content="HTML5, CSS, JS">
-    <meta name="author" content="Антон Перевалов">
-    <link rel="stylesheet" href="./pages/index.css">
-    <link href="./images/logo-page.ico" rel="icon">
-    <title>Научиться учиться</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--мета тег для адаптивности -->
+  <meta name="description" content="Портфолио Перевалова А.С. на Яндекс.Практикуме">
+  <meta name="keywords" content="HTML5, CSS, JS">
+  <meta name="author" content="Антон Перевалов">
+  <link rel="stylesheet" href="./pages/index.css">
+  <link href="./images/logo-page.ico" rel="icon">
+  <title>Научиться учиться</title>
 </head>
 
 <body class="page">
-    <header class="header">
-        <img src="./images/logo-header.svg" class="header__logo" alt="логотип сайта">
-    </header>
-    <main class="content">
-        <section class="profile" title="коротко о пользователе: аватарка, имя, род деятельности">
-            <img src="./images/avatar.jpg" alt="фото пользователя" class="profile__avatar">
-            <div class="profile__info">
-                <div class="profile__name-edit">
-                    <h1 class="profile__username" id="profile__username" title="Имя пользователя">Жак-Ив Кусто</h1><img
-                        src="./images/edit-button.svg" alt="кнопка редактирования профиля" class="profile__edit-button"
-                        id="profile__edit-button">
-                </div>
-                <p class="profile__employment" id="profile__employment" title="род деятельности">Исследователь океана
-                </p>
-            </div>
-            <button class="profile__add-button"><img src="./images/add_button.svg"
-                    alt="кнопка добавления мест"></button>
-        </section>
-        <section>
-            <ul class="cards">
-                <li class="card">
-                    <img src="./images/karachaevsk.jpg" alt="фото Карачаевска" class="card__mask-card">
-                    <h2 class="card__mesto">Карачаево-Черкеск</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card_karachaevsk"></button>
-                </li>
-                <li class="card">
-                    <img src="./images/elbrus.jpg" alt="фотография горы Эльбрус" class="card__mask-card">
-                    <h2 class="card__mesto">Гора Эльбрус</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card_elbrus"></button>
-                </li>
-                <li class="card">
-                    <img src="./images/dombai.jpg" alt="фотография гор Домбай" class="card__mask-card">
-                    <h2 class="card__mesto">Домбай</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card_dombai"></button>
-                </li>
-                <li class="card">
-                    <img src="./images/krasnoyarsk.jpg" alt="фотография запаведника Столбы" class="card__mask-card">
-                    <h2 class="card__mesto">Красноярск</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card_krasnoyarsk"></button>
-                </li>
-                <li class="card">
-                    <img src="./images/petropavlovsk1.jpg" alt="фото Петропавловска" class="card__mask-card">
-                    <h2 class="card__mesto">Петропаловск-Камчатский</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card_petropavlovsk"></button>
-                </li>
-                <li class="card">
-                    <img src="./images/elton.jpg" alt="фото Эльтон" class="card__mask-card">
-                    <h2 class="card__mesto">Эльтон</h2>
-                    <button class="card__like"><img src="./images/like_disabled.svg" alt="лайк"
-                            id="card__elton"></button>
-                </li>
-            </ul>
-        </section>
-    </main>
-    <footer class="footer">
-        <p class="footer__copyright">© 2020 Mesto Russia</p>
-    </footer>
-    <div class="popup" id="popup" title="модальное окно редактирования автора и его рода деятельности">
-        <form class="popup__content" name="form-popup">
-            <h3 class="popup__title" id="popup-title">Редактировать профиль</h3>
-            <input type="text" class="popup__field" id="popup__username" name="popup__username">
-            <input type="text" class="popup__field" id="popup__employment" name="popup__employment">
-            <button title="сохранить информацию о пользователе" class="popup__submit" id="popup__submit">
-                Сохранить</button>
-            <button title="закрыть модальное окно" class="popup__close-button">
-                <img src="./images/close-icon.svg" alt="иконка закрытия модального окна" id="popup__close"
-                    class="popup__close"></button>
-        </form>
-
-
-
-    </div>
-    <script src="./scripts/index.js"></script>
+  <header class="header">
+    <img src="./images/logo-header.svg" class="header__logo" alt="логотип сайта">
+  </header>
+  <main class="content">
+    <section class="profile" title="коротко о пользователе: аватарка, имя, род деятельности">
+      <img src="./images/avatar.jpg" alt="фото пользователя" class="profile__avatar">
+      <div class="profile__edit">
+        <div class="profile__info">
+          <div>
+            <h1 class="profile__username" id="profile__username" title="Имя пользователя">Жак-Ив Кусто</h1>
+            <p class="profile__employment" id="profile__employment" title="род деятельности">Исследователь oкеана</p>
+          </div>
+        </div>
+        <button type="button" title="кнопка редактирования профиля" class="profile__edit-button"
+          id="profile__edit-button"></button>
+      </div>
+      <button type="button" class="profile__add-button" title="кнопка добавления мест"></button>
+    </section>
+    <section>
+      <ul class="cards">
+        <li class="card">
+          <img src="./images/karachaevsk.jpg" alt="фото Карачаевска" class="card__mask-card">
+          <h2 class="card__mesto">Карачаево-Черкеск</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+        <li class="card">
+          <img src="./images/elbrus.jpg" alt="фотография горы Эльбрус" class="card__mask-card">
+          <h2 class="card__mesto">Гора Эльбрус</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+        <li class="card">
+          <img src="./images/dombai.jpg" alt="фотография гор Домбай" class="card__mask-card">
+          <h2 class="card__mesto">Домбай</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+        <li class="card">
+          <img src="./images/krasnoyarsk.jpg" alt="фотография запаведника Столбы" class="card__mask-card">
+          <h2 class="card__mesto">Красноярск</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+        <li class="card">
+          <img src="./images/petropavlovsk1.jpg" alt="фото Петропавловска" class="card__mask-card">
+          <h2 class="card__mesto">Петропаловск-Камчатский</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+        <li class="card">
+          <img src="./images/elton.jpg" alt="фото Эльтон" class="card__mask-card">
+          <h2 class="card__mesto">Эльтон</h2>
+          <button type="button" class="card__like"></button>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup" id="popup" title="модальное окно редактирования автора и его рода деятельности">
+    <form class="popup__content" name="form-popup" id="popup__content">
+      <h3 class="popup__title" id="popup-title">Редактировать профиль</h3>
+      <input type="text" class="popup__field" id="popup__username" name="popup__username" placeholder="Имя">
+      <input type="text" class="popup__field" id="popup__employment" name="popup__employment" placeholder="О себе">
+      <button type="submit" title="сохранить информацию о пользователе" class="popup__submit">Сохранить</button>
+      <button type="button" title="закрыть модальное окно" class="popup__close-popup" id="popup__close-popup"></button>
+    </form>
+  </div>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
