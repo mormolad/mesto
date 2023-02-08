@@ -65,7 +65,6 @@ function submitingPopupPlace(evt) {
     };
     addCard(card);
   }
-
   closingPopupPlace();
 }
 
@@ -110,12 +109,9 @@ function fillWithCards() {
     addCard(item);
   });
 }
-
 fillWithCards();
 
 const like = document.querySelectorAll('#card_like');
-console.log(like);
-
 like.forEach((item) => {
   item.addEventListener('click', (evt) => {
     evt.target.classList.toggle('card__like_state_active');
