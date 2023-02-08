@@ -7,7 +7,7 @@
 
     grid-template-columns: 242px 1fr;
 
-
+    position: relative;
     font-size: 24px;
     line-height: 29px;
     font-weight: 900;

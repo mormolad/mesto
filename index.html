@@ -38,6 +38,7 @@
             <img src="" alt="" class="card__mask-card">
             <h2 class="card__mesto"></h2>
             <button type="button" class="card__like" id="card_like"></button>
+            <button type="button" class="card__del-card" id="card-del-card"></button>
           </li>
         </template>
       </ul>
@@ -57,8 +58,7 @@
         id="popup-user__close-popup"></button>
     </form>
   </div>
-
-  <div class="popup" id="popup-place" title="модальное окно редактирования автора и его рода деятельности">
+  <div class="popup" id="popup-place" title="модальное окно добавления нового места">
     <form class="popup__content" name="form-popup" id="popup-place__content">
       <h3 class="popup__title" id="popup-place-title">Новое место</h3>
       <input type="text" class="popup__field" id="popup-place-name" name="popup__place-name" placeholder="Название">
@@ -69,8 +69,16 @@
         id="popup-place__close-popup"></button>
     </form>
   </div>
-
-
+  <template id="popup-image">
+    <div class="popup-image__overlay" id="popup-image__overlay">
+      <div class="popup-image__content" id="popup-image__content" title="фотография с маста">
+        <img scr="" alt="" class="popup-image__image-popup" id="popup-image__image-popup">
+        <h3 class="popup-image__title" id="popup-image__title"></h3>
+        <button type="button" title="закрыть картинку" class="popup-image__close-popup"
+          id="popup-image__close-popup"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 
