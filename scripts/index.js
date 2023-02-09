@@ -92,13 +92,15 @@ function addCard(item) {
     openPopup.querySelector('#popup-image__image-popup').src = item.link;
     openPopup.querySelector('#popup-image__title').textContent = item.name;
     const closeButtonPopupImage = openPopup.querySelector('#popup-image__close-popup');
-    console.log(openPopup.querySelector('#popup-image__title'));
     closeButtonPopupImage.addEventListener('click', (evt) => {
       openPopup.remove();
     });
     body.append(openPopup);
-    openPopup.style.opacity = 1;
-    openPopup.style.visibility = 'visible';
+
+    setTimeout(() => {
+      openPopup.style.opacity = '1';
+      openPopup.style.visibility = 'visible';
+    }, 100);
   });
 
   cards.prepend(insertedCard);
