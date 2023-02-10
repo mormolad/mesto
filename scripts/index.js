@@ -93,7 +93,11 @@ function addCard(item) {
     openPopup.querySelector('#popup-image__title').textContent = item.name;
     const closeButtonPopupImage = openPopup.querySelector('#popup-image__close-popup');
     closeButtonPopupImage.addEventListener('click', (evt) => {
-      openPopup.remove();
+      openPopup.style.opacity = '0';
+      setTimeout(() => {
+        openPopup.remove();
+      }, 500);
+
     });
     body.append(openPopup);
 
