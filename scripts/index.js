@@ -69,35 +69,41 @@ function submitingPopupPlace(evt) {
 
 const cardsContainer = document.querySelector('.cards');
 
-function addCard(item) {
-  document.querySelector('.card__mesto').textContent = item.name;
-  const image = document.querySelector('.card__mask-card');
-  image.src = item.link;
-  image.addEventListener('click', (evt) => {
-    const popupImage = document.querySelector('#popup-image').content;
-    const openPopup = popupImage.querySelector('#popup-image__overlay').cloneNode(true);
-    openPopup.querySelector('#popup-image__image-popup').src = item.link;
-    openPopup.querySelector('#popup-image__title').textContent = item.name;
-    const closeButtonPopupImage = openPopup.querySelector('#popup-image__close-popup');
-    closeButtonPopupImage.addEventListener('click', (evt) => {
-      openPopup.style.opacity = '0';
-      setTimeout(() => {
-        openPopup.remove();
-      }, 500);
-    });
-    body.append(openPopup);
 
-    setTimeout(() => {
-      openPopup.style.opacity = '1';
-      openPopup.style.visibility = 'visible';
-    }, 100);
-  });
 
-  cardsContainer.prepend(insertedCard);
-  const basket = document.querySelector('#card-del-card');
-  basket.addEventListener('click', (evt) => {
-    insertedCard.remove();
-  });
+
+
+
+
+// function addCard(item) {
+//   document.querySelector('.card__mesto').textContent = item.name;
+//   const image = document.querySelector('.card__mask-card');
+//   image.src = item.link;
+//   image.addEventListener('click', (evt) => {
+//     const popupImage = document.querySelector('#popup-image').content;
+//     const openPopup = popupImage.querySelector('#popup-image__overlay').cloneNode(true);
+//     openPopup.querySelector('#popup-image__image-popup').src = item.link;
+//     openPopup.querySelector('#popup-image__title').textContent = item.name;
+//     const closeButtonPopupImage = openPopup.querySelector('#popup-image__close-popup');
+//     closeButtonPopupImage.addEventListener('click', (evt) => {
+//       openPopup.style.opacity = '0';
+//       setTimeout(() => {
+//         openPopup.remove();
+//       }, 500);
+//     });
+//     body.append(openPopup);
+
+//     setTimeout(() => {
+//       openPopup.style.opacity = '1';
+//       openPopup.style.visibility = 'visible';
+//     }, 100);
+//   });
+
+cardsContainer.prepend(insertedCard);
+const basket = document.querySelector('#card-del-card');
+basket.addEventListener('click', (evt) => {
+  insertedCard.remove();
+});
 }
 
 function fillWithCards() {
