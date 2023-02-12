@@ -51,8 +51,10 @@
   <div class="popup" id="popup-user" title="модальное окно редактирования автора и его рода деятельности">
     <form class="popup__content" name="form-popup" id="popup-user__content">
       <h3 class="popup__title" id="popup-user-title">Редактировать профиль</h3>
-      <input type="text" class="popup__field" id="popup-user__username" name="popup__username" placeholder="Имя">
-      <input type="text" class="popup__field" id="popup-user__employment" name="popup__employment" placeholder="О себе">
+      <input type="text" class="popup__field" id="popup-user__username" name="popup__username" placeholder="Имя"
+        required>
+      <input type="text" class="popup__field" id="popup-user__employment" name="popup__employment" placeholder="О себе"
+        required>
       <button type="submit" title="сохранить информацию о пользователе" class="popup__submit">Сохранить</button>
       <button type="button" title="закрыть модальное окно" class="popup__close-popup"
         id="popup-user__close-popup"></button>
@@ -61,9 +63,10 @@
   <div class="popup" id="popup-place" title="модальное окно добавления нового места">
     <form class="popup__content" name="form-popup" id="popup-place__content">
       <h3 class="popup__title" id="popup-place-title">Новое место</h3>
-      <input type="text" class="popup__field" id="popup-place-name" name="popup__place-name" placeholder="Название">
-      <input type="text" class="popup__field" id="popup-place-url-image" name="popup__url-image"
-        placeholder="Ссылка на картинку">
+      <input type="text" class="popup__field" id="popup-place-name" name="popup__place-name" placeholder="Название"
+        required>
+      <input type="url" class="popup__field" id="popup-place-url-image" name="popup__url-image"
+        placeholder="Ссылка на картинку" required>
       <button type="submit" title="сохранить информацию о пользователе" class="popup__submit">Сохранить</button>
       <button type="button" title="закрыть модальное окно" class="popup__close-popup"
         id="popup-place__close-popup"></button>

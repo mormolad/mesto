@@ -19,11 +19,15 @@ buttonSubmit.addEventListener('submit', submitingPopup);
 function showPopup() {
   userNameInput.value = userName.textContent;
   employmentInput.value = employment.textContent;
-  popupUser.classList.add('popup_enable');
+  popupUser.style.opacity = 1;
+  popupUser.style.visibility = 'visible';
 }
 
 function closingPopup() {
-  popupUser.classList.remove('popup_enable');
+  popupUser.style.opacity = 0;
+  setTimeout(() => {
+    popupUser.style.visibility = 'hidden';
+  }, 1000);
 }
 
 function submitingPopup(evt) {
@@ -35,7 +39,7 @@ function submitingPopup(evt) {
   closingPopup();
 }
 
-let buttomAdd = document.querySelector('#profile__add-button');
+let addButtom = document.querySelector('#profile__add-button');
 
 let place = null;
 let urlImage = null;
@@ -46,7 +50,7 @@ const popupUrlImage = document.querySelector('#popup-place-url-image');
 const buttonSubmitAdd = document.querySelector('#popup-place__content');
 const buttonCloseAdd = document.querySelector('#popup-place__close-popup');
 
-buttomAdd.addEventListener('click', showPopupPlace);
+addButtom.addEventListener('click', showPopupPlace);
 buttonCloseAdd.addEventListener('click', closingPopupPlace);
 buttonSubmitAdd.addEventListener('submit', submitingPopupPlace);
 
