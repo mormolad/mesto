@@ -47,32 +47,17 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <!-- <template id="card-item"> -->
-  <div class="popup" id="popup-user" title="модальное окно редактирования автора и его рода деятельности">
-    <form class="popup__content" name="form-popup" id="popup-user__content">
-      <h3 class="popup__title" id="popup-user-title">Редактировать профиль</h3>
-      <input type="text" class="popup__field" id="popup-user__username" name="popup__username" placeholder="Имя"
-        required>
-      <input type="text" class="popup__field" id="popup-user__employment" name="popup__employment" placeholder="О себе"
-        required>
-      <button type="submit" title="сохранить информацию о пользователе" class="popup__submit">Сохранить</button>
-      <button type="button" title="закрыть модальное окно" class="popup__close-popup"
-        id="popup-user__close-popup"></button>
+  <div class="popup" id="popup" title="модальное окно редактирования">
+    <form class="popup__content" name="form-popup" id="popup__content">
+      <h3 class="popup__title" id="popup-title"></h3>
+      <input type="text" class="popup__field" id="popup__field1" name="popup__field1" placeholder="" required>
+      <input type="text" class="popup__field" id="popup__field2" name="popup__field2" placeholder="" required>
+      <button type="submit" title="сохранить информацию" class="popup__submit">Сохранить</button>
+      <button type="button" title="закрыть модальное окно" class="popup__close-popup" id="popup__close-popup"></button>
     </form>
   </div>
-  <div class="popup" id="popup-place" title="модальное окно добавления нового места">
-    <form class="popup__content" name="form-popup" id="popup-place__content">
-      <h3 class="popup__title" id="popup-place-title">Новое место</h3>
-      <input type="text" class="popup__field" id="popup-place-name" name="popup__place-name" placeholder="Название"
-        required>
-      <input type="url" class="popup__field" id="popup-place-url-image" name="popup__url-image"
-        placeholder="Ссылка на картинку" required>
-      <button type="submit" title="сохранить информацию о пользователе" class="popup__submit">Сохранить</button>
-      <button type="button" title="закрыть модальное окно" class="popup__close-popup"
-        id="popup-place__close-popup"></button>
-    </form>
-  </div>
-  <template id="popup-image">
+
+  <div id="popup-image">
     <div class="popup-image__overlay" id="popup-image__overlay">
       <div class="popup-image__content" id="popup-image__content" title="фотография с маста">
         <img scr="" alt="" class="popup-image__image-popup" id="popup-image__image-popup">
@@ -81,7 +66,7 @@
           id="popup-image__close-popup"></button>
       </div>
     </div>
-  </template>
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 

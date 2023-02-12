@@ -5,81 +5,73 @@ const buttonEdit = document.querySelector('#profile__edit-button');
 const userName = document.querySelector('#profile__username');
 const employment = document.querySelector('#profile__employment');
 
-const popupUser = document.querySelector('#popup-user');
-const userNameInput = document.querySelector('#popup-user__username');
-const employmentInput = document.querySelector('#popup-user__employment');
-const buttonSubmit = document.querySelector('#popup-user__content');
-const buttonClose = document.querySelector('#popup-user__close-popup');
+const popup = document.querySelector('#popup');
+const titlePopup = document.querySelector('#popup-title');
+const field1Input = document.querySelector('#popup__field1');
+const field2Input = document.querySelector('#popup__field2');
+const buttonSubmit = document.querySelector('#popup__content');
+const buttonClose = document.querySelector('#popup__close-popup');
+
+const buttomAdd = document.querySelector('#profile__add-button');
+
 const body = document.querySelector('.page');
 
-buttonEdit.addEventListener('click', showPopup);
-buttonClose.addEventListener('click', closingPopup);
-buttonSubmit.addEventListener('submit', submitingPopup);
+const card = document.querySelector('#card-item').content;
+
+buttonEdit.addEventListener('click', renderPopupdUser);
+buttonClose.addEventListener('click', closePopup);
+buttomAdd.addEventListener('click', renderPopupPlace);
+
+function renderPopupdUser() {
+  titlePopup.innerText = 'Редактировать профиль';
+  field1Input.placeholder = userName.textContent;
+  field2Input.placeholder = employment.textContent;
+  buttonSubmit.addEventListener('submit', submitingPopupUser);
+  showPopup(popup);
+}
+
+function submitingPopupUser(evt) {
+  evt.preventDefault();
+  userName.textContent = field1Input.value;
+  employment.textContent = field2Input.value;
+  buttonSubmit.removeEventListener('submit', submitingPopupUser);
+  closePopup();
+  field1Input.value = null;
+  field2Input.value = null;
+}
 
 function showPopup() {
-  userNameInput.value = userName.textContent;
-  employmentInput.value = employment.textContent;
-  popupUser.classList.add('popup_enable');
+  popup.classList.add('popup_enable');
 }
 
-function closingPopup() {
-  popupUser.classList.remove('popup_enable');
+function closePopup() {
+  popup.classList.remove('popup_enable');
 }
 
-function submitingPopup(evt) {
-  evt.preventDefault();
-  if (userNameInput.value !== '' && employmentInput.value !== '') {
-    userName.textContent = userNameInput.value;
-    employment.textContent = employmentInput.value;
-  }
-  closingPopup();
-}
-
-let buttomAdd = document.querySelector('#profile__add-button');
-
-let place = null;
-let urlImage = null;
-
-const popupPlace = document.querySelector('#popup-place');
-const popupPlaceName = document.querySelector('#popup-place-name');
-const popupUrlImage = document.querySelector('#popup-place-url-image');
-const buttonSubmitAdd = document.querySelector('#popup-place__content');
-const buttonCloseAdd = document.querySelector('#popup-place__close-popup');
-
-buttomAdd.addEventListener('click', showPopupPlace);
-buttonCloseAdd.addEventListener('click', closingPopupPlace);
-buttonSubmitAdd.addEventListener('submit', submitingPopupPlace);
-
-function showPopupPlace() {
-  popupPlace.style.opacity = 1;
-  popupPlace.style.visibility = 'visible';
-}
-
-function closingPopupPlace() {
-  popupPlace.style.opacity = 0;
-  setTimeout(() => {
-    popupPlace.style.visibility = 'hidden';
-  }, 1000);
+function renderPopupPlace() {
+  titlePopup.innerText = 'Новое место';
+  field1Input.placeholder = 'Название нового места';
+  field2Input.placeholder = 'URL картинки';
+  buttonSubmit.addEventListener('submit', submitingPopupPlace);
+  showPopup(popup);
 }
 
 function submitingPopupPlace(evt) {
   evt.preventDefault();
   const card = {
-    name: popupPlaceName.value,
-    link: popupUrlImage.value,
+    name: field1Input.value,
+    link: field2Input.value,
   };
   addCard(card);
-
-  closingPopupPlace();
+  buttonSubmit.removeEventListener('submit', submitingPopupPlace);
+  closePopup();
 }
 
-const cards = document.querySelector('.cards');
+const cardsContainer = document.querySelector('.cards');
 
 function addCard(item) {
-  const card = document.querySelector('#card-item').content;
-  const insertedCard = card.querySelector('.card').cloneNode(true);
-  insertedCard.querySelector('.card__mesto').textContent = item.name;
-  const image = insertedCard.querySelector('.card__mask-card');
+  document.querySelector('.card__mesto').textContent = item.name;
+  const image = document.querySelector('.card__mask-card');
   image.src = item.link;
   image.addEventListener('click', (evt) => {
     const popupImage = document.querySelector('#popup-image').content;
@@ -101,7 +93,7 @@ function addCard(item) {
     }, 100);
   });
 
-  cards.prepend(insertedCard);
+  cardsContainer.prepend(insertedCard);
   const basket = document.querySelector('#card-del-card');
   basket.addEventListener('click', (evt) => {
     insertedCard.remove();
@@ -135,13 +127,16 @@ function fillWithCards() {
       link: './images/elton_X.jpg',
     },
   ];
+
   initialCards.forEach((item) => {
     addCard(item);
   });
 }
+
 fillWithCards();
 
 const like = document.querySelectorAll('#card_like');
+
 like.forEach((item) => {
   item.addEventListener('click', (evt) => {
     evt.target.classList.toggle('card__like_state_active');
