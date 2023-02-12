@@ -69,6 +69,25 @@ function submitingPopupPlace(evt) {
 
 const cardsContainer = document.querySelector('.cards');
 
+const titlePopupImage = document.querySelector('popup-image__title');
+const imagePopupImage = document.querySelector('popup-image__image-popup');
+
+
+// Для добавления карточки в разметку можно завести отдельную функцию, например renderCard, которая вызывает функцию создания карточки (createCard) и результат ее выполнения уже в разметку добавляет используя prepend, ее можно будет использовать как в методе загрузки первоначальных карточек, так и при добавлении пользовательской.
+
+function addCard(item) {
+  const card = createCard(item)
+  cardsContainer.prepend(insertedCard);
+}
+
+
+function createCard(item) {
+  const card = document.querySelector('#card-item').content;
+  const insertedCard = card.querySelector('.card').cloneNode(true);
+  insertedCard.querySelector('.card__mesto').textContent = item.name;
+  const image = insertedCard.querySelector('.card__mask-card');
+  image.src = item.link;
+}
 
 
 
@@ -76,8 +95,10 @@ const cardsContainer = document.querySelector('.cards');
 
 
 // function addCard(item) {
-//   document.querySelector('.card__mesto').textContent = item.name;
-//   const image = document.querySelector('.card__mask-card');
+//   const card = document.querySelector('#card-item').content;
+//   const insertedCard = card.querySelector('.card').cloneNode(true);
+//   insertedCard.querySelector('.card__mesto').textContent = item.name;
+//   const image = insertedCard.querySelector('.card__mask-card');
 //   image.src = item.link;
 //   image.addEventListener('click', (evt) => {
 //     const popupImage = document.querySelector('#popup-image').content;
@@ -99,12 +120,13 @@ const cardsContainer = document.querySelector('.cards');
 //     }, 100);
 //   });
 
-cardsContainer.prepend(insertedCard);
-const basket = document.querySelector('#card-del-card');
-basket.addEventListener('click', (evt) => {
-  insertedCard.remove();
-});
-}
+//   cards.prepend(insertedCard);
+//   const basket = document.querySelector('#card-del-card');
+//   basket.addEventListener('click', (evt) => {
+//     insertedCard.remove();
+//   });
+// }
+
 
 function fillWithCards() {
   const initialCards = [
@@ -139,21 +161,29 @@ function fillWithCards() {
   });
 }
 
+
+
+
+
+
+
 fillWithCards();
 
-const like = document.querySelectorAll('#card_like');
+// const like = document.querySelectorAll('#card_like');
 
-like.forEach((item) => {
-  item.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('card__like_state_active');
-  });
-});
+// like.forEach((item) => {
+//   item.addEventListener('click', (evt) => {
+//     evt.target.classList.toggle('card__like_state_active');
+//   });
+// });
 
-const basket = document.querySelectorAll('#card-del-card');
 
-basket.forEach((item) => {
-  const cardRemoved = item.parentNode;
-  item.addEventListener('click', (evt) => {
-    cardRemoved.remove();
-  });
-});
+
+// const basket = document.querySelectorAll('#card-del-card');
+
+// basket.forEach((item) => {
+//   const cardRemoved = item.parentNode;
+//   item.addEventListener('click', (evt) => {
+//     cardRemoved.remove();
+//   });
+// });
