@@ -33,14 +33,6 @@
     </section>
     <section>
       <ul class="cards">
-        <template id="card-item">
-          <li class="card">
-            <img src="null" alt="" class="card__mask-card">
-            <h2 class="card__mesto"></h2>
-            <button type="button" class="card__like" id="card_like"></button>
-            <button type="button" class="card__del-card" id="card-del-card"></button>
-          </li>
-        </template>
       </ul>
     </section>
   </main>
@@ -57,16 +49,23 @@
     </form>
   </div>
 
-  <div id="popup-image">
-    <div class="popup-image__overlay" id="popup-image__overlay">
-      <div class="popup-image__content" id="popup-image__content" title="фотография с маста">
-        <img scr="" alt="" class="popup-image__image-popup" id="popup-image__image-popup">
-        <h3 class="popup-image__title" id="popup-image__title"></h3>
-        <button type="button" title="закрыть картинку" class="popup-image__close-popup"
-          id="popup-image__close-popup"></button>
-      </div>
+  <div id="popup-image" class="popup-image">
+    <div class="popup-image__content" id="popup-image__content" title="фотография с маста">
+      <img scr="" alt="" class="popup-image__image-popup" id="popup-image__image-popup">
+      <h3 class="popup-image__title" id="popup-image__title"></h3>
+      <button type="button" title="закрыть картинку" class="popup-image__close-popup"
+        id="popup-image__close-popup"></button>
     </div>
   </div>
+  <template id="card-item">
+    <li class="card">
+      <img src="#" alt="" class="card__mask-card" id="image-card">
+      <h2 class="card__mesto"></h2>
+      <button type="button" class="card__like" id="card_like"></button>
+      <button type="button" class="card__del-card" id="button-del-card"></button>
+    </li>
+  </template>
+  <script src="./modules/cards.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 
