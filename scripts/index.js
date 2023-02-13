@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const buttonEdit = document.querySelector('#profile__edit-button');
 
@@ -106,8 +106,6 @@ function renderPopupImage(evt) {
   imagePopupImages.src = evt.srcElement.src;
   imagePopupImages.alt = evt.srcElement.alt;
   titlePopupImages.textContent = evt.srcElement.alt;
-  console.log(evt.srcElement.alt);
-
   showPopupImage();
 }
 
