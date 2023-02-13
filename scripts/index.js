@@ -106,7 +106,6 @@ function renderPopupImage(evt) {
   imagePopupImages.src = evt.srcElement.src;
   imagePopupImages.alt = evt.srcElement.alt;
   titlePopupImages.textContent = evt.srcElement.alt;
-  button - del - card;
   console.log(evt.srcElement.alt);
 
   showPopupImage();

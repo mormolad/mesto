@@ -11,6 +11,6 @@
 - CSS
 - JavaScript
 
-### адрес проекта
+### Fдрес проекта
 
 https://mormolad.github.io/mesto/
