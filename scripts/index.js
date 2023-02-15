@@ -6,8 +6,8 @@ const buttonEdit = document.querySelector('#profile__edit-button');
 const buttomAdd = document.querySelector('#profile__add-button');
 
 const popupEditUser = document.querySelector('#popup-edit-user');
-const InputName = popupEditUser.querySelector('#input-user-name');
-const InputEmployment = popupEditUser.querySelector('#input-user-employment');
+const inputName = popupEditUser.querySelector('#input-user-name');
+const inputEmployment = popupEditUser.querySelector('#input-user-employment');
 const buttonSubmitEditUser = popupEditUser.querySelector('#content-popup-edit-user');
 const buttonCloseEditUser = popupEditUser.querySelector('#button-close-popup-edit-user');
 
@@ -76,13 +76,15 @@ function closePopupImage() {
 
 function submitingPopupUser(evt) {
   evt.preventDefault();
-  userName.textContent = InputName.value;
-  employment.textContent = InputEmployment.value;
+  userName.textContent = inputName.value;
+  employment.textContent = inputEmployment.value;
   closePopupEditUser();
-  InputName.value = null;
-  InputEmployment.value = null;
+  inputName.value = null;
+  inputEmployment.value = null;
 }
 function showPopupEditUser() {
+  inputName.placeholder = userName.textContent;
+  inputEmployment.placeholder = employment.textContent;
   showPopup(popupEditUser);
 }
 function closePopupEditUser() {
