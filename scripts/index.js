@@ -8,13 +8,15 @@ const buttomAdd = document.querySelector('#profile__add-button');
 const popupEditUser = document.querySelector('#popup-edit-user');
 const inputName = popupEditUser.querySelector('#input-user-name');
 const inputEmployment = popupEditUser.querySelector('#input-user-employment');
-const buttonSubmitEditUser = popupEditUser.querySelector('#content-popup-edit-user');
+const formEditUser = popupEditUser.querySelector('#content-popup-edit-user');
+const buttonSubmitEditUser = formEditUser.querySelector('#button-submit-popup-edit-user');
 const buttonCloseEditUser = popupEditUser.querySelector('#button-close-popup-edit-user');
 
 const popupAddCard = document.querySelector('#popup-add-card');
 const inputNamePlace = popupAddCard.querySelector('#input-place-name');
 const inputUrlImagePlace = popupAddCard.querySelector('#input-url-image-place');
-const buttonSubmitAddCard = popupAddCard.querySelector('#content-popup-add-card');
+const formAddCard = popupAddCard.querySelector('#content-popup-add-card');
+const buttonSubmitAddCard = formAddCard.querySelector('#button-submit-popup-add-card');
 const buttonCloseAddCard = popupAddCard.querySelector('#button-close-popup-add-card');
 
 const body = document.querySelector('.page');
@@ -29,6 +31,29 @@ const cardsContainer = document.querySelector('.cards');
 const insertedCard = card.querySelector('.card');
 const cardTemplate = document.querySelector('#card-item').content;
 
+const overlayPopups = document.querySelectorAll('.popup');
+
+function checkForValidity(arrayOfElements) {
+  const arrayOfStateField = [];
+  for (let i = 0; i < arrayOfElements.length; i++) {
+    arrayOfStateField[i] = arrayOfElements[i].validity.valid;
+  }
+  return !arrayOfStateField.some((element) => {
+    return element === false;
+  });
+}
+function hideButton(buttonForm) {
+  buttonForm.classList.add('popup__submit_disable');
+  buttonForm.setAttribute('disabled', true);
+}
+function showButton(buttonForm) {
+  buttonForm.removeAttribute('disabled', false);
+  buttonForm.classList.remove('popup__submit_disable');
+}
+function switchStateButton(item) {
+  return checkForValidity(item.currentTarget.querySelectorAll('.popup__field'));
+}
+
 function submitingPopupPlace(evt) {
   evt.preventDefault();
   const card = {
@@ -42,6 +67,7 @@ function submitingPopupPlace(evt) {
 }
 function showPopupAddCard() {
   showPopup(popupAddCard);
+  hideButton(buttonSubmitAddCard);
 }
 function closePopupAddCard() {
   closePopup(popupAddCard);
@@ -89,6 +115,7 @@ function showPopupEditUser() {
 }
 function closePopupEditUser() {
   closePopup(popupEditUser);
+  hideButton(buttonSubmitEditUser);
 }
 
 initialCards.forEach((item) => {
@@ -96,10 +123,26 @@ initialCards.forEach((item) => {
 });
 
 function closePopup(element) {
-  element.classList.remove('popup-image_enable');
+  window.removeEventListener('keydown', closePopupWithKeyEsc);
+  element.classList.remove('popup_enable');
 }
 function showPopup(element) {
-  element.classList.add('popup-image_enable');
+  element.classList.add('popup_enable');
+  window.addEventListener('keydown', (evt) => {
+    closePopupWithKeyEsc(evt, element);
+  });
+}
+
+function closePopupClickOnOverlay(currentPopup) {
+  if (currentPopup.currentTarget === currentPopup.target) {
+    closePopup(currentPopup.target);
+  }
+}
+
+function closePopupWithKeyEsc(currentEvt, popup) {
+  if (currentEvt.keyCode === 27) {
+    closePopup(popup);
+  }
 }
 
 buttonEdit.addEventListener('click', showPopupEditUser);
@@ -107,5 +150,14 @@ buttomAdd.addEventListener('click', showPopupAddCard);
 buttonCloseEditUser.addEventListener('click', closePopupEditUser);
 buttonCloseAddCard.addEventListener('click', closePopupAddCard);
 buttonClosePopupImage.addEventListener('click', closePopupImage);
-buttonSubmitAddCard.addEventListener('submit', submitingPopupPlace);
-buttonSubmitEditUser.addEventListener('submit', submitingPopupUser);
+formAddCard.addEventListener('submit', submitingPopupPlace);
+formEditUser.addEventListener('submit', submitingPopupUser);
+overlayPopups.forEach((item) => {
+  item.addEventListener('mousedown', closePopupClickOnOverlay);
+});
+popupEditUser.addEventListener('input', (ivt) => {
+  switchStateButton(ivt) ? showButton(buttonSubmitEditUser) : hideButton(buttonSubmitEditUser);
+});
+popupAddCard.addEventListener('input', (ivt) => {
+  switchStateButton(ivt) ? showButton(buttonSubmitAddCard) : hideButton(buttonSubmitAddCard);
+});

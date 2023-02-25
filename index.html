@@ -39,24 +39,28 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+
   <div class="popup" id="popup-edit-user" title="модальное окно редактирования">
-    <form class="popup__content" name="form-popup" id="content-popup-edit-user">
+    <form class="popup__content" name="form-popup" id="content-popup-edit-user" novalidate>
       <h3 class="popup__title" id="title-popup-edit-user">Редактировать профиль</h3>
-      <input type="text" class="popup__field" id="input-user-name" name="input-user-name" placeholder="Имя автора"
-        required>
-      <input type="text" class="popup__field" id="input-user-employment" name="input-user-employment"
-        placeholder="Род деятельности" required>
-      <button type="submit" title="сохранить информацию" class="popup__submit"
-        id="button-submit-popup-edit-user">Сохранить</button>
+      <input type="text" class="popup__field" id="input-user-name" name="input-user-name" minlength="2" maxlength="40"
+        placeholder="Имя автора" required>
+      <span class="popup__message-error" id="message-error-user-name"></span>
+      <input type="text" class="popup__field" id="input-user-employment" name="input-user-employment" minlength="2"
+        maxlength="200" placeholder="Род деятельности" required>
+      <span class="popup__message-error" id="message-error-user-employment"></span>
+      <button type="submit" title="сохранить информацию" class="popup__submit popup__submit_disable"
+        id="button-submit-popup-edit-user" disabled="true">Сохранить</button>
       <button type="button" title="закрыть модальное окно" class="popup__close-popup"
         id="button-close-popup-edit-user"></button>
     </form>
   </div>
+
   <div class="popup" id="popup-add-card" title="модальное окно редактирования">
     <form class="popup__content" name="form-popup" id="content-popup-add-card">
       <h3 class="popup__title" id="title-popup-add-card">Новое место</h3>
       <input type="text" class="popup__field" id="input-place-name" name="input-place-name"
-        placeholder="Название нового места" required>
+        placeholder="Название нового места" minlength="2" maxlength="30" required>
       <input type="url" class="popup__field" id="input-url-image-place" name="input-url-image-place"
         placeholder="URL картинки" required>
       <button type="submit" title="сохранить информацию" class="popup__submit"
@@ -65,14 +69,15 @@
         id="button-close-popup-add-card"></button>
     </form>
   </div>
-  <div id="popup-image" class="popup-image">
-    <div class="popup-image__content" id="popup-image__content" title="фотография с маста">
-      <img scr="" alt="" class="popup-image__image-popup" id="popup-image__image-popup">
-      <h3 class="popup-image__title" id="popup-image__title"></h3>
-      <button type="button" title="закрыть картинку" class="popup-image__close-popup"
-        id="popup-image__close-popup"></button>
+
+  <div class="popup" id="popup-image">
+    <div class="popup__content-image" id="popup-image__content" title="фотография с маста">
+      <img scr="" alt="" class="popup__image-popup" id="popup-image__image-popup">
+      <h3 class="popup__title-image" id="popup-image__title"></h3>
+      <button type="button" title="закрыть картинку" class="popup__close-popup" id="popup-image__close-popup"></button>
     </div>
   </div>
+
   <template id="card-item">
     <li class="card">
       <img src="#" alt="" class="card__mask-card" id="image-card">
