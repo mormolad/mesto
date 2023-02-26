@@ -54,6 +54,10 @@ function switchStateButton(item) {
   return checkForValidity(item.currentTarget.querySelectorAll('.popup__field'));
 }
 
+function rrrr(tttt) {
+
+}
+
 function submitingPopupPlace(evt) {
   evt.preventDefault();
   const card = {
