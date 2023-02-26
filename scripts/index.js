@@ -33,31 +33,7 @@ const cardTemplate = document.querySelector('#card-item').content;
 
 const overlayPopups = document.querySelectorAll('.popup');
 
-function checkForValidity(arrayOfElements) {
-  const arrayOfStateField = [];
-  for (let i = 0; i < arrayOfElements.length; i++) {
-    arrayOfStateField[i] = arrayOfElements[i].validity.valid;
-  }
-  return !arrayOfStateField.some((element) => {
-    return element === false;
-  });
-}
-function hideButton(buttonForm) {
-  buttonForm.classList.add('popup__submit_disable');
-  buttonForm.setAttribute('disabled', true);
-}
-function showButton(buttonForm) {
-  buttonForm.removeAttribute('disabled', false);
-  buttonForm.classList.remove('popup__submit_disable');
-}
-function switchStateButton(item) {
-  return checkForValidity(item.currentTarget.querySelectorAll('.popup__field'));
-}
-
-function rrrr(tttt) {
-
-}
-
+//обрботать форму добовления места при нажатии кнопки submit
 function submitingPopupPlace(evt) {
   evt.preventDefault();
   const card = {
@@ -69,13 +45,16 @@ function submitingPopupPlace(evt) {
   inputNamePlace.value = null;
   inputUrlImagePlace.value = null;
 }
+// показать всплывающее окно добавления карточки
 function showPopupAddCard() {
   showPopup(popupAddCard);
   hideButton(buttonSubmitAddCard);
 }
+// убрать всплывающее окно добавления карточки
 function closePopupAddCard() {
   closePopup(popupAddCard);
 }
+//сделать карточку и вернуть её
 function createCard(item) {
   const sampleCard = cardTemplate.querySelector('.card').cloneNode(true);
   const imageCard = sampleCard.querySelector('#image-card');
@@ -93,17 +72,18 @@ function createCard(item) {
   imageCard.addEventListener('click', renderPopupImage);
   return sampleCard;
 }
-
+//нарисовать всплывающее окно с картинкой места
 function renderPopupImage(evt) {
   imagePopupImages.src = evt.srcElement.src;
   imagePopupImages.alt = evt.srcElement.alt;
   titlePopupImages.textContent = evt.srcElement.alt;
   showPopup(popupImage);
 }
+// убрать всплывающее окно с фото места
 function closePopupImage() {
   closePopup(popupImage);
 }
-
+//обрботать форму редактирования информации о пользователе при нажатии кнопки submit
 function submitingPopupUser(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
@@ -112,37 +92,41 @@ function submitingPopupUser(evt) {
   inputName.value = null;
   inputEmployment.value = null;
 }
+// показать всплывающее окно редактирования информации о пользователе
 function showPopupEditUser() {
   inputName.placeholder = userName.textContent;
+  inputName.value = userName.textContent;
   inputEmployment.placeholder = employment.textContent;
+  inputEmployment.value = employment.textContent;
   showPopup(popupEditUser);
 }
+// убрать всплывающее окно редактирования информации о пользователе
 function closePopupEditUser() {
   closePopup(popupEditUser);
-  hideButton(buttonSubmitEditUser);
 }
-
+//из коллекции добавить карточки
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
 });
-
+// убрать всплывающее окно
 function closePopup(element) {
   window.removeEventListener('keydown', closePopupWithKeyEsc);
   element.classList.remove('popup_enable');
 }
+//показать всплывающее окно
 function showPopup(element) {
   element.classList.add('popup_enable');
   window.addEventListener('keydown', (evt) => {
     closePopupWithKeyEsc(evt, element);
   });
 }
-
+//закрытие всплывающего окна при нажатии вне его пространства
 function closePopupClickOnOverlay(currentPopup) {
   if (currentPopup.currentTarget === currentPopup.target) {
     closePopup(currentPopup.target);
   }
 }
-
+//закрытие всплывающего окна при нажатии Esc
 function closePopupWithKeyEsc(currentEvt, popup) {
   if (currentEvt.keyCode === 27) {
     closePopup(popup);
@@ -154,14 +138,9 @@ buttomAdd.addEventListener('click', showPopupAddCard);
 buttonCloseEditUser.addEventListener('click', closePopupEditUser);
 buttonCloseAddCard.addEventListener('click', closePopupAddCard);
 buttonClosePopupImage.addEventListener('click', closePopupImage);
-formAddCard.addEventListener('submit', submitingPopupPlace);
 formEditUser.addEventListener('submit', submitingPopupUser);
+formAddCard.addEventListener('submit', submitingPopupPlace);
+
 overlayPopups.forEach((item) => {
   item.addEventListener('mousedown', closePopupClickOnOverlay);
-});
-popupEditUser.addEventListener('input', (ivt) => {
-  switchStateButton(ivt) ? showButton(buttonSubmitEditUser) : hideButton(buttonSubmitEditUser);
-});
-popupAddCard.addEventListener('input', (ivt) => {
-  switchStateButton(ivt) ? showButton(buttonSubmitAddCard) : hideButton(buttonSubmitAddCard);
 });
