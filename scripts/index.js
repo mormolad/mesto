@@ -3,7 +3,7 @@
 const userName = document.querySelector('#profile__username');
 const employment = document.querySelector('#profile__employment');
 const buttonEdit = document.querySelector('#profile__edit-button');
-const buttomAdd = document.querySelector('#profile__add-button');
+const buttonAdd = document.querySelector('#profile__add-button');
 
 const popupEditUser = document.querySelector('#popup-edit-user');
 const inputName = popupEditUser.querySelector('#input-user-name');
@@ -134,7 +134,7 @@ function closePopupWithKeyEsc(currentEvt, popup) {
 }
 
 buttonEdit.addEventListener('click', showPopupEditUser);
-buttomAdd.addEventListener('click', showPopupAddCard);
+buttonAdd.addEventListener('click', showPopupAddCard);
 buttonCloseEditUser.addEventListener('click', closePopupEditUser);
 buttonCloseAddCard.addEventListener('click', closePopupAddCard);
 buttonClosePopupImage.addEventListener('click', closePopupImage);
