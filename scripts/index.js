@@ -48,7 +48,6 @@ function submitingPopupPlace(evt) {
 // показать всплывающее окно добавления карточки
 function showPopupAddCard() {
   showPopup(popupAddCard);
-  hideButton(buttonSubmitAddCard);
 }
 // убрать всплывающее окно добавления карточки
 function closePopupAddCard() {
@@ -144,3 +143,6 @@ formAddCard.addEventListener('submit', submitingPopupPlace);
 overlayPopups.forEach((item) => {
   item.addEventListener('mousedown', closePopupClickOnOverlay);
 });
+
+inputName.value = userName.textContent;
+inputEmployment.value = employment.textContent;

@@ -38,4 +38,7 @@
 @import url(../blocks/popup/__image-popup/popup__image-popupe.css);
 @import url(../blocks/popup/__title-image/popup__title-image.css);
 @import url(../blocks/popup/__content-image/popup__content-image.css);
-@import url(../blocks/popup/__submit_disable/popup__submit_disable.css);
+@import url(../blocks/popup/__submit/__submit_disable/popup__submit_disable.css);
+@import url(../blocks/popup/__message-error/popup__message-error.css);
+@import url(../blocks/popup/__field/_state-invalid/popup__field_state-invalid.css);
+@import url(../blocks/popup/__form-section/popup__form-section.css);

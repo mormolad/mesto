@@ -1,45 +1,74 @@
-// проверка на валидность
-function checkForValidation(arrayOfElements) {
-  const arrayOfStateField = [];
-  for (let i = 0; i < arrayOfElements.length; i++) {
-    arrayOfStateField[i] = arrayOfElements[i].validity.valid;
+//показать сообщение об ошибки валидации и подчеркнуть красным поле ввода
+const showError = (errorElement, inputElement, options) => {
+  errorElement.innerText = inputElement.validationMessage;
+  inputElement.classList.add(options.inputErrorClass);
+};
+////убрать сообщение об ошибки валидации и подчеркнуть черным поле ввода
+const hiddenError = (errorElement, inputElement, options) => {
+  errorElement.innerText = '';
+  inputElement.classList.remove(options.inputErrorClass);
+};
+//переключение состояния поля ввода
+const toggleInputState = (inputElement, options) => {
+  const isValid = inputElement.validity.valid;
+  const inputSectionElement = inputElement.closest(options.inputSectionSelector);
+  const errorElement = inputSectionElement.querySelector(options.inputErrorSelector);
+  if (isValid) {
+    hiddenError(errorElement, inputElement, options);
+  } else {
+    showError(errorElement, inputElement, options);
   }
-  return !arrayOfStateField.some((element) => {
-    return element === false;
+};
+//кнопка найдена
+const enableButton = (buttonSubmit, options) => {
+  buttonSubmit.setAttribute('disabled', false);
+  buttonSubmit.classList.remove(options.buttonNoValidForm);
+};
+//кнопка скрыта
+const disableButton = (buttonSubmit, options) => {
+  buttonSubmit.setAttribute('disabled', true);
+  buttonSubmit.classList.add(options.buttonNoValidForm);
+};
+//переключение состояния кнопки сохранить
+const toggleButtonState = (inputs, buttonSubmit, options) => {
+  const formIsNoValid = inputs.some((element) => {
+    return element.validity.valid === false;
   });
-}
-//сделать кнопку не активной
-function hideButton(buttonForm, collectionSelectors) {
-  buttonForm.classList.add(collectionSelectors.inactiveButtonClass);
-  buttonForm.setAttribute('disabled', true);
-}
-//сделать кнопку активной
-function showButton(buttonForm, collectionSelectors) {
-  buttonForm.removeAttribute('disabled', false);
-  buttonForm.classList.remove(collectionSelectors.inactiveButtonClass);
-}
-//переключатель состояния кнопки
-function switchStateButton(item, collectionSelectors) {
-  return checkForValidation(item.currentTarget.querySelectorAll(collectionSelectors.inputSelector));
-}
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
-function enableValidation(collectionSelectors) {
-  popupEditUser.addEventListener('input', (ivt) => {
-    switchStateButton(ivt, collectionSelectors) ? showButton(buttonSubmitEditUser, collectionSelectors) : hideButton(buttonSubmitEditUser, collectionSelectors);
+  if (formIsNoValid) {
+    disableButton(buttonSubmit, options);
+  } else {
+    enableButton(buttonSubmit, options);
+  }
+};
+// включаем валидацию
+const enableValidation = (options) => {
+  const forms = Array.from(document.querySelectorAll(options.formSelector));
+  forms.forEach((form) => {
+    setEventListners(form, options);
   });
-  popupAddCard.addEventListener('input', (ivt) => {
-    switchStateButton(ivt, collectionSelectors) ? showButton(buttonSubmitAddCard, collectionSelectors) : hideButton(buttonSubmitAddCard, collectionSelectors);
+};
+// устанавливаем прослушщиватели на поля ввода
+const setEventListners = (form, options) => {
+  const inputs = Array.from(form.querySelectorAll(options.inputSelector));
+  const buttonSubmit = form.querySelector(options.submitButtonSelector);
+  inputs.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      toggleInputState(inputElement, options);
+      toggleButtonState(inputs, buttonSubmit, options);
+    });
   });
-}
-
-enableValidation({
-  formSelector: '.popup__form',
+  toggleButtonState(inputs, buttonSubmit, options);
+};
+// селекторы для робрабокти форм
+const validationOptions = {
+  formSelector: '.popup__content',
   inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__button',
+  submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disable',
-  inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__error_visible',
-});
+  inputSectionSelector: '.popup__form-section',
+  inputErrorSelector: '.popup__message-error',
+  inputErrorClass: 'popup__field_state-invalid',
+  buttonNoValidForm: 'popup__submit_disable',
+};
+
+enableValidation(validationOptions);
