@@ -58,6 +58,11 @@ const setEventListners = (form, options) => {
     });
   });
   toggleButtonState(inputs, buttonSubmit, options);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputs, buttonSubmit, options);
+    }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+  });
 };
 // селекторы для робрабокти форм
 const validationOptions = {

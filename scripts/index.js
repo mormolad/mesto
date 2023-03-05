@@ -34,7 +34,8 @@ const cardTemplate = document.querySelector('#card-item').content;
 const overlayPopups = document.querySelectorAll('.popup');
 
 //обрботать форму добовления места при нажатии кнопки submit
-function submitingPopupPlace(evt) {
+function handlePlaceFormSubmit(evt) {
+  // про начальную форму в чек листе упущено....там написано только про глагол
   evt.preventDefault();
   const card = {
     name: inputNamePlace.value,
@@ -42,8 +43,11 @@ function submitingPopupPlace(evt) {
   };
   cardsContainer.prepend(createCard(card));
   closePopup(popupAddCard);
-  inputNamePlace.value = null;
-  inputUrlImagePlace.value = null;
+  evt.target.reset();
+  // inputNamePlace.value = null;
+  // inputUrlImagePlace.value = null;
+  const options = { formIsInvalid: 'popup__submit_disable' };
+  disableButton(buttonSubmitAddCard, options);
 }
 // показать всплывающее окно добавления карточки
 function showPopupAddCard() {
@@ -83,19 +87,15 @@ function closePopupImage() {
   closePopup(popupImage);
 }
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
-function submitingPopupUser(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   employment.textContent = inputEmployment.value;
   closePopupEditUser();
-  inputName.value = null;
-  inputEmployment.value = null;
 }
 // показать всплывающее окно редактирования информации о пользователе
 function showPopupEditUser() {
-  inputName.placeholder = userName.textContent;
   inputName.value = userName.textContent;
-  inputEmployment.placeholder = employment.textContent;
   inputEmployment.value = employment.textContent;
   showPopup(popupEditUser);
 }
@@ -115,34 +115,32 @@ function closePopup(element) {
 //показать всплывающее окно
 function showPopup(element) {
   element.classList.add('popup_enable');
-  window.addEventListener('keydown', (evt) => {
-    closePopupWithKeyEsc(evt, element);
-  });
+  window.addEventListener('keydown', closePopupWithKeyEsc);
 }
+
 //закрытие всплывающего окна при нажатии вне его пространства
-function closePopupClickOnOverlay(currentPopup) {
-  if (currentPopup.currentTarget === currentPopup.target) {
-    closePopup(currentPopup.target);
+function closePopupClickOnOverlay(evt) {
+  if (evt.currentTarget === evt.target) {
+    closePopup(evt.target);
   }
+  window.removeEventListener('keydown', closePopupWithKeyEsc);
 }
 //закрытие всплывающего окна при нажатии Esc
-function closePopupWithKeyEsc(currentEvt, popup) {
-  if (currentEvt.keyCode === 27) {
-    closePopup(popup);
+function closePopupWithKeyEsc(currentEvt) {
+  if (currentEvt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_enable');
+    closePopup(openedPopup);
   }
 }
 
 buttonEdit.addEventListener('click', showPopupEditUser);
 buttonAdd.addEventListener('click', showPopupAddCard);
-buttonCloseEditUser.addEventListener('click', closePopupEditUser);
-buttonCloseAddCard.addEventListener('click', closePopupAddCard);
+buttonCloseEditUser.addEventListener('mousedown', closePopupEditUser);
+buttonCloseAddCard.addEventListener('mousedown', closePopupAddCard);
 buttonClosePopupImage.addEventListener('click', closePopupImage);
-formEditUser.addEventListener('submit', submitingPopupUser);
-formAddCard.addEventListener('submit', submitingPopupPlace);
+formEditUser.addEventListener('submit', handleProfileFormSubmit);
+formAddCard.addEventListener('submit', handlePlaceFormSubmit);
 
 overlayPopups.forEach((item) => {
   item.addEventListener('mousedown', closePopupClickOnOverlay);
 });
-
-inputName.value = userName.textContent;
-inputEmployment.value = employment.textContent;
