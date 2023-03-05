@@ -21,13 +21,13 @@ const toggleInputState = (inputElement, options) => {
 };
 //кнопка найдена
 const enableButton = (buttonSubmit, options) => {
-  buttonSubmit.setAttribute('disabled', false);
-  buttonSubmit.classList.remove(options.buttonNoValidForm);
+  buttonSubmit.removeAttribute('disabled');
+  buttonSubmit.classList.remove(options.formIsInvalid);
 };
 //кнопка скрыта
 const disableButton = (buttonSubmit, options) => {
   buttonSubmit.setAttribute('disabled', true);
-  buttonSubmit.classList.add(options.buttonNoValidForm);
+  buttonSubmit.classList.add(options.formIsInvalid);
 };
 //переключение состояния кнопки сохранить
 const toggleButtonState = (inputs, buttonSubmit, options) => {
@@ -68,7 +68,7 @@ const validationOptions = {
   inputSectionSelector: '.popup__form-section',
   inputErrorSelector: '.popup__message-error',
   inputErrorClass: 'popup__field_state-invalid',
-  buttonNoValidForm: 'popup__submit_disable',
+  formIsInvalid: 'popup__submit_disable',
 };
 
 enableValidation(validationOptions);
