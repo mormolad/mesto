@@ -10,14 +10,12 @@ const inputName = popupEditUser.querySelector('#input-user-name');
 const inputEmployment = popupEditUser.querySelector('#input-user-employment');
 const formEditUser = popupEditUser.querySelector('#content-popup-edit-user');
 const buttonSubmitEditUser = formEditUser.querySelector('#button-submit-popup-edit-user');
-const buttonCloseEditUser = popupEditUser.querySelector('#button-close-popup-edit-user');
 
 const popupAddCard = document.querySelector('#popup-add-card');
 const inputNamePlace = popupAddCard.querySelector('#input-place-name');
 const inputUrlImagePlace = popupAddCard.querySelector('#input-url-image-place');
 const formAddCard = popupAddCard.querySelector('#content-popup-add-card');
 const buttonSubmitAddCard = formAddCard.querySelector('#button-submit-popup-add-card');
-const buttonCloseAddCard = popupAddCard.querySelector('#button-close-popup-add-card');
 
 const body = document.querySelector('.page');
 
@@ -25,7 +23,6 @@ const card = document.querySelector('#card-item').content;
 const popupImage = document.querySelector('#popup-image');
 const imagePopupImages = document.querySelector('#popup-image__image-popup');
 const titlePopupImages = document.querySelector('#popup-image__title');
-const buttonClosePopupImage = document.querySelector('#popup-image__close-popup');
 
 const cardsContainer = document.querySelector('.cards');
 const insertedCard = card.querySelector('.card');
