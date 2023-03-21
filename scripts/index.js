@@ -28,8 +28,6 @@ const initialCards = [
   },
 ];
 const cardsContainer = document.querySelector('.cards');
-const imagePopupImages = document.querySelector('#popup-image__image-popup');
-const titlePopupImages = document.querySelector('#popup-image__title');
 
 initialCards.forEach((item) => {
   const card = new Card(item);
