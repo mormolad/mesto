@@ -3,21 +3,31 @@ class Card {
     this.name = item.name;
     this.link = item.link;
   }
-
-  _showPopup(element) {
+  //показать всплывающее окно с картинкой места
+  _showPopup = (element) => {
     element.classList.add('popup_enable');
-    window.addEventListener('keydown', closePopupWithKeyEsc);
-  }
+    window.addEventListener('keydown', () => {
+      this._closePopupWithKeyEsc;
+    });
+  };
 
-  _renderPopupImage(evt) {
+  //нарисовать всплывающее окно с картинкой места
+  _renderPopupImage(thisClass, evt) {
     const imagePopupImages = document.querySelector('#popup-image__image-popup');
     const titlePopupImages = document.querySelector('#popup-image__title');
     const popupImage = document.querySelector('#popup-image');
     imagePopupImages.src = evt.srcElement.src;
     imagePopupImages.alt = evt.srcElement.alt;
     titlePopupImages.textContent = evt.srcElement.alt;
-    console.log(popupImage);
-    this._showPopup(popupImage);
+    console.log(this);
+    thisClass._showPopup(popupImage);
+  }
+
+  _closePopupWithKeyEsc(currentEvt) {
+    if (currentEvt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_enable');
+      closePopup(openedPopup);
+    }
   }
 
   render() {
@@ -34,7 +44,9 @@ class Card {
     sampleCard.querySelector('#button-del-card').addEventListener('click', () => {
       sampleCard.remove();
     });
-    imageCard.addEventListener('click', this._renderPopupImage);
+    imageCard.addEventListener('click', (evt) => {
+      this._renderPopupImage(this, evt);
+    });
     return sampleCard;
   }
 }
