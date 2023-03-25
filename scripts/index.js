@@ -56,7 +56,7 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value });
   cardsContainer.prepend(card.render());
-  closePopup(popupAddCard);
+  Card.closePopup(popupAddCard);
   evt.target.reset();
 }
 // показать всплывающее окно добавления карточки
@@ -69,7 +69,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   employment.textContent = inputEmployment.value;
-  closePopup(popupEditUser);
+  Card.closePopup(popupEditUser);
 }
 // показать всплывающее окно редактирования информации о пользователе
 function showPopupEditUser() {
@@ -90,14 +90,14 @@ function showPopup(element) {
 //закрытие всплывающего окна при нажатии вне его пространства
 function closePopupClickOnOverlay(evt) {
   if (evt.currentTarget === evt.target) {
-    closePopup(evt.target);
+    Card.closePopup(evt.target);
   }
 }
 //закрытие всплывающего окна при нажатии Esc
 function closePopupWithKeyEsc(currentEvt) {
   if (currentEvt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_enable');
-    closePopup(openedPopup);
+    Card.closePopup(openedPopup);
   }
 }
 
@@ -111,5 +111,5 @@ overlayPopups.forEach((item) => {
 const closeButtons = document.querySelectorAll('.popup__close-popup');
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
+  button.addEventListener('click', () => Card.closePopup(popup));
 });

@@ -1,32 +1,39 @@
+const imagePopupImages = document.querySelector('#popup-image__image-popup');
+const titlePopupImages = document.querySelector('#popup-image__title');
+const popupImage = document.querySelector('#popup-image');
+const openedPopup = document.querySelector('.popup_enable');
+
 class Card {
+  static closePopup(element) {
+    window.removeEventListener('keydown', this._closePopupWithKeyEsc);
+    element.classList.remove('popup_enable');
+  }
+
   constructor(item) {
     this.name = item.name;
     this.link = item.link;
   }
   //показать всплывающее окно с картинкой места
-  _showPopup = (element) => {
+  _showPopup = (element, thisClass) => {
     element.classList.add('popup_enable');
-    window.addEventListener('keydown', () => {
-      this._closePopupWithKeyEsc;
+    window.addEventListener('keydown', (evt) => {
+      console.log(thisClass);
+      thisClass._closePopupWithKeyEsc(evt, thisClass);
     });
   };
 
   //нарисовать всплывающее окно с картинкой места
   _renderPopupImage(thisClass, evt) {
-    const imagePopupImages = document.querySelector('#popup-image__image-popup');
-    const titlePopupImages = document.querySelector('#popup-image__title');
-    const popupImage = document.querySelector('#popup-image');
     imagePopupImages.src = evt.srcElement.src;
     imagePopupImages.alt = evt.srcElement.alt;
     titlePopupImages.textContent = evt.srcElement.alt;
-    console.log(this);
-    thisClass._showPopup(popupImage);
+    thisClass._showPopup(popupImage, thisClass);
   }
 
   _closePopupWithKeyEsc(currentEvt) {
+    console.log(currentEvt.key);
     if (currentEvt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_enable');
-      closePopup(openedPopup);
+      thisClass._closePopup(openedPopup);
     }
   }
 
