@@ -74,6 +74,7 @@ function handlePlaceFormSubmit(evt) {
   const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value });
   cardsContainer.prepend(card.render());
   Card.closePopup(popupAddCard);
+  popupAddCard.querySelector('.popup__content').reset();
 }
 // показать всплывающее окно добавления карточки
 function showPopupAddCard() {
