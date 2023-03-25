@@ -1,4 +1,6 @@
 ﻿'use strict';
+import Card from '../modules/Card.js';
+import FormValidator from '../modules/FormValidator.js';
 const userName = document.querySelector('#profile__username');
 const employment = document.querySelector('#profile__employment');
 const buttonEdit = document.querySelector('#profile__edit-button');
@@ -8,17 +10,16 @@ const popupEditUser = document.querySelector('#popup-edit-user');
 const inputName = popupEditUser.querySelector('#input-user-name');
 const inputEmployment = popupEditUser.querySelector('#input-user-employment');
 const formEditUser = popupEditUser.querySelector('#content-popup-edit-user');
-const buttonSubmitEditUser = formEditUser.querySelector('#button-submit-popup-edit-user');
+//const buttonSubmitEditUser = formEditUser.querySelector('#button-submit-popup-edit-user');
 
 const popupAddCard = document.querySelector('#popup-add-card');
 const inputNamePlace = popupAddCard.querySelector('#input-place-name');
 const inputUrlImagePlace = popupAddCard.querySelector('#input-url-image-place');
 const formAddCard = popupAddCard.querySelector('#content-popup-add-card');
-const buttonSubmitAddCard = formAddCard.querySelector('#button-submit-popup-add-card');
+//const buttonSubmitAddCard = formAddCard.querySelector('#button-submit-popup-add-card');
 
 const overlayPopups = document.querySelectorAll('.popup');
 
-import Card from '../modules/Card.js';
 const initialCards = [
   {
     name: 'Карачаево-Черкеск',
@@ -45,6 +46,7 @@ const initialCards = [
     link: './images/elton_X.jpg',
   },
 ];
+
 const cardsContainer = document.querySelector('.cards');
 
 initialCards.forEach((item) => {
@@ -52,16 +54,30 @@ initialCards.forEach((item) => {
   cardsContainer.append(card.render());
 });
 
+// селекторы для робрабокти форм
+const validationOptions = {
+  formSelector: '.popup__content',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disable',
+  inputSectionSelector: '.popup__form-section',
+  inputErrorSelector: '.popup__message-error',
+  inputErrorClass: 'popup__field_state-invalid',
+  formIsInvalid: 'popup__submit_disable',
+};
+
+const validition = new FormValidator(validationOptions);
+validition.enableValidation();
+
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value });
   cardsContainer.prepend(card.render());
   Card.closePopup(popupAddCard);
-  evt.target.reset();
 }
 // показать всплывающее окно добавления карточки
 function showPopupAddCard() {
-  showPopup(popupAddCard); //?
+  Card.showPopup(popupAddCard);
 }
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
@@ -75,29 +91,13 @@ function handleProfileFormSubmit(evt) {
 function showPopupEditUser() {
   inputName.value = userName.textContent;
   inputEmployment.value = employment.textContent; //?
-  showPopup(popupEditUser);
+  Card.showPopup(popupEditUser);
 }
-// убрать всплывающее окно
-function closePopup(element) {
-  window.removeEventListener('keydown', closePopupWithKeyEsc);
-  element.classList.remove('popup_enable');
-}
-//показать всплывающее окно
-function showPopup(element) {
-  element.classList.add('popup_enable');
-  window.addEventListener('keydown', closePopupWithKeyEsc);
-}
+
 //закрытие всплывающего окна при нажатии вне его пространства
 function closePopupClickOnOverlay(evt) {
   if (evt.currentTarget === evt.target) {
     Card.closePopup(evt.target);
-  }
-}
-//закрытие всплывающего окна при нажатии Esc
-function closePopupWithKeyEsc(currentEvt) {
-  if (currentEvt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_enable');
-    Card.closePopup(openedPopup);
   }
 }
 
@@ -108,8 +108,13 @@ formAddCard.addEventListener('submit', handlePlaceFormSubmit);
 overlayPopups.forEach((item) => {
   item.addEventListener('mousedown', closePopupClickOnOverlay);
 });
-const closeButtons = document.querySelectorAll('.popup__close-popup');
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => Card.closePopup(popup));
+const closeButtons = [document.querySelector('#popup-edit-user'), document.querySelector('#popup-add-card')];
+closeButtons.forEach((popup) => {
+  const buttonClose = popup.querySelector('.popup__close-popup');
+  buttonClose.addEventListener('click', closePopupButtonClose);
 });
+
+function closePopupButtonClose(evt) {
+  const popup = evt.target.closest('.popup');
+  Card.closePopup(popup);
+}
