@@ -12,13 +12,16 @@ const popupEditUser = document.querySelector('#popup-edit-user');
 const inputName = popupEditUser.querySelector('#input-user-name');
 const inputEmployment = popupEditUser.querySelector('#input-user-employment');
 const formEditUser = popupEditUser.querySelector('#content-popup-edit-user');
-//const inputFormEditUser = formEditUser.querySelectorAll('.popup__field');
+const validationPopupEditUser = new FormValidator(validationOptions, formEditUser, renderPopupImage);
 
+//включаем валидацию
+validationPopupEditUser.enableValidation();
 const popupAddCard = document.querySelector('#popup-add-card');
 const inputNamePlace = popupAddCard.querySelector('#input-place-name');
 const inputUrlImagePlace = popupAddCard.querySelector('#input-url-image-place');
 const formAddCard = popupAddCard.querySelector('#content-popup-add-card');
-//const inputFormAddCard = formAddCard.querySelectorAll('.popup__field');
+const validationPopupAddCard = new FormValidator(validationOptions, formAddCard, renderPopupImage);
+validationPopupAddCard.enableValidation();
 
 const imagePopupImages = document.querySelector('#popup-image__image-popup');
 const titlePopupImages = document.querySelector('#popup-image__title');
@@ -28,16 +31,14 @@ const overlayPopups = document.querySelectorAll('.popup');
 
 const cardsContainer = document.querySelector('.cards');
 const selectorTemplateCard = '#card-item';
-const forms = Array.from(document.querySelectorAll(validationOptions.formSelector));
 
 // показать попап с картинкой
-const renderPopupImage = (evt) => {
+function renderPopupImage(evt) {
   imagePopupImages.src = evt.srcElement.src;
   imagePopupImages.alt = evt.srcElement.alt;
   titlePopupImages.textContent = evt.srcElement.alt;
   showPopup(popupImage);
-};
-const validation = forms.map((item) => new FormValidator(validationOptions, item, renderPopupImage));
+}
 
 // заполнить class="cards" картачками
 initialCards.forEach((item) => {
@@ -45,20 +46,18 @@ initialCards.forEach((item) => {
   cardsContainer.append(card.render());
 });
 
-//включаем валидацию
-validation.forEach((item) => item.enableValidation());
-
 // обработчик кнопки принять в форме добавления места
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value }, selectorTemplateCard, renderPopupImage);
   cardsContainer.prepend(card.render());
   closePopup(popupAddCard);
-  formAddCard.reset();
 }
 
 // показать всплывающее окно добавления карточки
 function showPopupAddCard() {
+  formAddCard.reset();
+  validationPopupAddCard.resetErrorInputs();
   showPopup(popupAddCard);
 }
 
@@ -68,12 +67,13 @@ function handleProfileFormSubmit(evt) {
   userName.textContent = inputName.value;
   employment.textContent = inputEmployment.value;
   closePopup(popupEditUser);
-  formEditUser.reset();
 }
 // показать всплывающее окно редактирования информации о пользователе
 function showPopupEditUser() {
+  formEditUser.reset();
+  validationPopupEditUser.resetErrorInputs();
   inputName.value = userName.textContent;
-  inputEmployment.value = employment.textContent; //?
+  inputEmployment.value = employment.textContent;
   showPopup(popupEditUser);
 }
 
@@ -83,17 +83,6 @@ function closePopupClickOnOverlay(evt) {
     closePopup(evt.target);
   }
 }
-
-// //обнулить поля ошибок при закрытии окна
-// function resetErrorInput(form) {
-//   form.querySelectorAll('.popup__message-error').forEach((item) => (item.innerText = ''));
-//   form.querySelectorAll('.popup__field').forEach((item) => item.classList.remove('popup__field_state-invalid'));
-//   if (form.querySelector('.popup__submit')) {
-//     form.querySelector('.popup__submit').removeAttribute('disabled');
-//     form.querySelector('.popup__submit').classList.remove('popup__submit_disable');
-
-//   }
-// }
 
 //закрыть всплывающее окно
 function closePopup(element) {
