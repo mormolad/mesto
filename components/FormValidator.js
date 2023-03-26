@@ -20,7 +20,6 @@ class FormValidator {
         this._toggleButtonState();
       });
     });
-    this._toggleButtonState();
   };
 
   //показать сообщение об ошибки валидации и подчеркнуть красным поле ввода
