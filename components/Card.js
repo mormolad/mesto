@@ -14,7 +14,9 @@ class Card {
     //устанавливаем слушатель лайка
     this._sampleCard.querySelector('#card_like').addEventListener('click', this._like);
     //устанавливаем слушатель для открытия попапа с картинкой
-    this._sampleCard.querySelector('.card__mask-card').addEventListener('click', this._renderPopupImage);
+    this._sampleCard.querySelector('.card__mask-card').addEventListener('click', () => {
+      this._renderPopupImage({ name: this._name, link: this._link });
+    });
     //устанавливаем слушатель удаления карточки
     this._sampleCard.querySelector('#button-del-card').addEventListener('click', () => {
       this._deleteCard();
