@@ -84,17 +84,6 @@ function closePopupClickOnOverlay(evt) {
   }
 }
 
-// //обнулить поля ошибок при закрытии окна
-// function resetErrorInput(form) {
-//   form.querySelectorAll('.popup__message-error').forEach((item) => (item.innerText = ''));
-//   form.querySelectorAll('.popup__field').forEach((item) => item.classList.remove('popup__field_state-invalid'));
-//   if (form.querySelector('.popup__submit')) {
-//     form.querySelector('.popup__submit').removeAttribute('disabled');
-//     form.querySelector('.popup__submit').classList.remove('popup__submit_disable');
-
-//   }
-// }
-
 //закрыть всплывающее окно
 function closePopup(element) {
   window.removeEventListener('keydown', closePopupWithKeyEsc);
