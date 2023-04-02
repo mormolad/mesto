@@ -8,19 +8,18 @@ class FormValidator {
     this._inputErrorClass = validationOptions.inputErrorClass;
     this._formIsInvalid = validationOptions.formIsInvalid;
     this._form = form;
+    this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._buttonSubmit = this._form.querySelector(this._submitButtonSelector);
   }
 
   // устанавливаем прослушиватели на поля ввода
   _setEventListners = () => {
-    const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonSubmit = this._form.querySelector(this._submitButtonSelector);
-    inputs.forEach((inputElement) => {
+    this._inputs.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._toggleInputState(inputElement);
-        this._toggleButtonState(inputs, buttonSubmit);
+        this._toggleButtonState();
       });
     });
-    this._toggleButtonState(inputs, buttonSubmit);
   };
 
   //показать сообщение об ошибки валидации и подчеркнуть красным поле ввода
@@ -37,37 +36,41 @@ class FormValidator {
 
   //переключение состояния поля ввода
   _toggleInputState(inputElement) {
-    const isValid = inputElement.validity.valid;
-    const inputSectionElement = inputElement.closest(this._inputSectionSelector);
-    const errorElement = inputSectionElement.querySelector(this._inputErrorSelector);
-    if (isValid) {
-      this._hiddenError(errorElement, inputElement);
-    } else {
-      this._showError(errorElement, inputElement);
-    }
+    const errorElement = this._getSpanError(inputElement);
+    inputElement.validity.valid ? this._hiddenError(errorElement, inputElement) : this._showError(errorElement, inputElement);
   }
+
+  _getSpanError(inputElement) {
+    const inputSectionElement = inputElement.closest(this._inputSectionSelector);
+    return inputSectionElement.querySelector(this._inputErrorSelector);
+  }
+
   //кнопка найдена
-  _enableButton(buttonSubmit) {
-    buttonSubmit.removeAttribute('disabled');
-    buttonSubmit.classList.remove(this._formIsInvalid);
+  _enableButton() {
+    this._buttonSubmit.removeAttribute('disabled');
+    this._buttonSubmit.classList.remove(this._formIsInvalid);
   }
   //кнопка скрыта
-  _disableButton(buttonSubmit) {
-    buttonSubmit.setAttribute('disabled', true);
-    buttonSubmit.classList.add(this._formIsInvalid);
+  _disableButton() {
+    this._buttonSubmit.setAttribute('disabled', true);
+    this._buttonSubmit.classList.add(this._formIsInvalid);
   }
   //переключение состояния кнопки сохранить
-  _toggleButtonState(inputs, buttonSubmit) {
-    const formIsNoValid = inputs.some((element) => {
+  _toggleButtonState() {
+    const formIsNoValid = this._inputs.some((element) => {
       return element.validity.valid === false;
     });
-
-    if (formIsNoValid) {
-      this._disableButton(buttonSubmit);
-    } else {
-      this._enableButton(buttonSubmit);
-    }
+    formIsNoValid ? this._disableButton() : this._enableButton();
   }
+
+  //обнулить поля ошибок при закрытии окна
+  resetErrorInputs() {
+    this._inputs.forEach((inputElement) => {
+      this._hiddenError(this._getSpanError(inputElement), inputElement);
+    });
+    this._toggleButtonState();
+  }
+
   // включаем валидацию
   enableValidation() {
     this._setEventListners();
