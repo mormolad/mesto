@@ -5,99 +5,78 @@ import validationOptions from '../utils/validateOptions.js';
 import initialCards from '../utils/dataCard.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-const userName = document.querySelector('#profile__username');
-const employment = document.querySelector('#profile__employment');
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+
 const buttonEdit = document.querySelector('#profile__edit-button');
 const buttonAdd = document.querySelector('#profile__add-button');
-
-//const popupEditUser = document.querySelector('#popup-edit-user');
-// const inputName = popupEditUser.querySelector('#input-user-name');
-// const inputEmployment = popupEditUser.querySelector('#input-user-employment');
-// const formEditUser = popupEditUser.querySelector('#content-popup-edit-user');
-// const validationPopupEditUser = new FormValidator(validationOptions, formEditUser);
-
-// включаем валидацию
-// validationPopupEditUser.enableValidation();
-// //const popupAddCard = document.querySelector('#popup-add-card');
-// const inputNamePlace = popupAddCard.querySelector('#input-place-name');
-// const inputUrlImagePlace = popupAddCard.querySelector('#input-url-image-place');
-// const formAddCard = popupAddCard.querySelector('#content-popup-add-card');
-// const validationPopupAddCard = new FormValidator(validationOptions, formAddCard);
-//validationPopupAddCard.enableValidation();
-
 const cardsContainer = document.querySelector('.cards');
 const selectorTemplateCard = '#card-item';
-
 //обращаемся к классу для создания элемента вставки на страницу
-const allCards = new Section({
-        items: initialCards,
-        renderer: (item) => {
-            const card = new Card(item, selectorTemplateCard, renderPopupImage);
-            return card.render();
-        },
+const allCards = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, selectorTemplateCard, renderPopupImage);
+      return card.render();
     },
-    '.cards'
+  },
+  '.cards'
 );
+//создаём экземпляр класса попапа с формой для добовления места
+const popupAddCard = new PopupWithForm('#popup-add-card', handlePlaceFormSubmit);
+const inputNamePlace = popupAddCard._popup.querySelector('#input-place-name');
+const inputUrlImagePlace = popupAddCard._popup.querySelector('#input-url-image-place');
 //вставляем готовый элемент на страницу
 allCards.rendererCards();
-
 //создаём экземпляр класса для попапа с картинкой места
 const popupOpenImage = new PopupWithImage('#popup-image');
-//устанавливаем слушатели на это окно
-popupOpenImage.setEventListeners();
-
+//создаём экземпляр класса попапа с формой для редактирования профиля
+const popupEditUser = new PopupWithForm('#popup-edit-user', handleProfileFormSubmit);
+const inputName = popupEditUser.form.querySelector('#input-user-name');
+const inputEmployment = popupEditUser.form.querySelector('#input-user-employment');
+//включаем валидацию
+const validationPopupEditUser = new FormValidator(validationOptions, popupEditUser.form);
+validationPopupEditUser.enableValidation();
+//включаем валидацию
+const validationPopupAddCard = new FormValidator(validationOptions, popupAddCard.form);
+validationPopupAddCard.enableValidation();
+const userInfo = new UserInfo({ selectorName: '#profile__username', selectorEmployment: '#profile__employment' });
+//функция открытия попапа
 function renderPopupImage(data) {
-    popupOpenImage.open(data);
+  popupOpenImage.open(data);
 }
-// buttonAdd.addEventListener('click', () => {
-//     popupOpenImage.open();
-//});
-// const validationPopupAddCard = new FormValidator(validationOptions, popupOpenImage._form);
-// validationPopupAddCard.enableValidation();
-//
-// показать попап с картинкой
-
 // обработчик кнопки принять в форме добавления места
-function handlePlaceFormSubmit(evt) {
-    evt.preventDefault();
-    const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value }, selectorTemplateCard, renderPopupImage);
-    cardsContainer.prepend(card.render());
-    closePopup(popupAddCard);
+function handlePlaceFormSubmit() {
+  const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value }, selectorTemplateCard, renderPopupImage);
+  cardsContainer.prepend(card.render());
 }
-
-// показать всплывающее окно добавления карточки
-// function showPopupAddCard() {
-//   formAddCard.reset();
-//   validationPopupAddCard.resetErrorInputs();
-//   showPopup(popupAddCard);
-// }
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
-function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-    userName.textContent = inputName.value;
-    employment.textContent = inputEmployment.value;
-    closePopup(popupEditUser);
-}
-// показать всплывающее окно редактирования информации о пользователе
-function showPopupEditUser() {
-    formEditUser.reset();
-    validationPopupEditUser.resetErrorInputs();
-    inputName.value = userName.textContent;
-    inputEmployment.value = employment.textContent;
-    showPopup(popupEditUser);
+function handleProfileFormSubmit() {
+  userInfo.setUserInfo({
+    name: inputName.value,
+    employment: inputEmployment.value,
+  });
+  popupEditUser.close();
 }
 
-//установка слушателей
-//buttonEdit.addEventListener('click', showPopupEditUser);
-//buttonAdd.addEventListener('click', showPopupAddCard);
-//formEditUser.addEventListener('submit', handleProfileFormSubmit);
-//formAddCard.addEventListener('submit', handlePlaceFormSubmit);
-// overlayPopups.forEach((item) => {
-//   item.addEventListener('mousedown', closePopupClickOnOverlay);
-// });
-// const popups = document.querySelectorAll('.popup');
-// popups.forEach((popup) => {
-//   //const buttonClose = popup.querySelector('.popup__close-popup');
-//   buttonClose.addEventListener('click', closePopupButtonClose);
-// });
+//устанавливаем слушатели для экземпляра попапа добовления места
+popupAddCard.setEventListeners();
+//устанавливаем слушатель на кнопку открытия попапа с добовлением места
+buttonAdd.addEventListener('click', () => {
+  validationPopupAddCard.resetErrorInputs();
+  popupAddCard.open();
+});
+//устанавливаем слушатели для экземпляра попапа редактирования профиля
+popupEditUser.setEventListeners();
+//устанавливаем слушатель на кнопку открытия попапа редактирования профиля
+buttonEdit.addEventListener('click', () => {
+  validationPopupEditUser.resetErrorInputs();
+  const { name, employment } = userInfo.getUserInfo();
+  inputName.value = name.innerText;
+  inputEmployment.value = employment.innerText;
+  popupEditUser.open();
+});
+//устанавливаем слушатели на попап с картинкой
+popupOpenImage.setEventListeners();
