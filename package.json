@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Цель проектной работы познакомиться с работой DOM-элементов. В частности разабраться с валидацией форм и улучшить UX при работе с попапами.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mormolad/mesto.git"
+  },
+  "author": "Perevalov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mormolad/mesto/issues"
+  },
+  "homepage": "https://github.com/mormolad/mesto#readme"
+}
