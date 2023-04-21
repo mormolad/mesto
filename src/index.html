@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--мета тег для адаптивности -->
+    <meta
+      name="description"
+      content="Портфолио Перевалова А.С. на Яндекс.Практикуме"
+    />
+    <meta name="keywords" content="HTML5, CSS, JS" />
+    <meta name="author" content="Антон Перевалов" />
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+    <link href="./images/logo-page.ico" rel="icon" />
+    <title>Научиться учиться</title>
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img
+        src="<%=require('./images/logo-header.svg')%>"
+        class="header__logo"
+        alt="логотип сайта"
+      />
+    </header>
+    <main class="content">
+      <section
+        class="profile"
+        title="коротко о пользователе: аватарка, имя, род деятельности"
+      >
+        <img
+          src="<%=require('./images/avatar.jpg')%>"
+          alt="фото пользователя"
+          class="profile__avatar"
+        />
+        <div class="profile__edit">
+          <div class="profile__info">
+            <h1
+              class="profile__username"
+              id="profile__username"
+              title="Имя пользователя"
+            >
+              Жак-Ив Кусто
+            </h1>
+            <p
+              class="profile__employment"
+              id="profile__employment"
+              title="род деятельности"
+            >
+              Исследователь oкеана
+            </p>
+          </div>
+          <button
+            type="button"
+            title="кнопка редактирования профиля"
+            class="profile__edit-button"
+            id="profile__edit-button"
+          ></button>
+        </div>
+        <button
+          type="button"
+          class="profile__add-button"
+          id="profile__add-button"
+          title="кнопка добавления мест"
+        ></button>
+      </section>
+      <section>
+        <ul class="cards"></ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+
+    <div
+      class="popup"
+      id="popup-edit-user"
+      title="модальное окно редактирования"
+    >
+      <form
+        class="popup__content"
+        name="form-popup"
+        id="content-popup-edit-user"
+        novalidate
+      >
+        <h3 class="popup__title" id="title-popup-edit-user">
+          Редактировать профиль
+        </h3>
+        <div class="popup__form-section">
+          <input
+            type="text"
+            class="popup__field"
+            id="input-user-name"
+            name="inputUserName"
+            minlength="2"
+            maxlength="40"
+            placeholder="Имя автора"
+            required
+            value="Жак-Ив Кусто"
+          />
+          <span class="popup__message-error"></span>
+        </div>
+        <div class="popup__form-section">
+          <input
+            type="text"
+            class="popup__field"
+            id="input-user-employment"
+            name="inputUserEmployment"
+            minlength="2"
+            maxlength="200"
+            placeholder="Род деятельности"
+            required
+            value="Исследователь oкеана"
+          />
+          <span class="popup__message-error"></span>
+        </div>
+        <button
+          type="submit"
+          title="сохранить информацию"
+          class="popup__submit"
+          id="button-submit-popup-edit-user"
+        >
+          Сохранить
+        </button>
+        <button
+          type="button"
+          title="закрыть модальное окно"
+          class="popup__close-popup"
+          id="button-close-popup-edit-user"
+        ></button>
+      </form>
+    </div>
+
+    <div
+      class="popup"
+      id="popup-add-card"
+      title="модальное окно редактирования"
+    >
+      <form
+        class="popup__content"
+        name="form-popup"
+        id="content-popup-add-card"
+        novalidate
+      >
+        <h3 class="popup__title" id="title-popup-add-card">Новое место</h3>
+        <div class="popup__form-section">
+          <input
+            type="text"
+            class="popup__field"
+            id="input-place-name"
+            name="input-place-name"
+            placeholder="Название нового места"
+            minlength="2"
+            maxlength="30"
+            required
+          />
+          <span class="popup__message-error"></span>
+        </div>
+        <div class="popup__form-section">
+          <input
+            type="url"
+            class="popup__field"
+            id="input-url-image-place"
+            name="input-url-image-place"
+            placeholder="URL картинки"
+            required
+          />
+          <span class="popup__message-error"></span>
+        </div>
+        <button
+          type="submit"
+          title="сохранить информацию"
+          class="popup__submit"
+          id="button-submit-popup-add-card"
+        >
+          Сохранить
+        </button>
+        <button
+          type="button"
+          title="закрыть модальное окно"
+          class="popup__close-popup"
+          id="button-close-popup-add-card"
+        ></button>
+      </form>
+    </div>
+
+    <div class="popup" id="popup-image">
+      <div
+        class="popup__content-image"
+        id="popup-image__content"
+        title="фотография с маста"
+      >
+        <img
+          scr=""
+          alt=""
+          class="popup__image-popup"
+          id="popup-image__image-popup"
+        />
+        <h3 class="popup__title-image" id="popup-image__title"></h3>
+        <button
+          type="button"
+          title="закрыть картинку"
+          class="popup__close-popup"
+          id="popup-image__close-popup"
+        ></button>
+      </div>
+    </div>
+
+    <template id="card-item">
+      <li class="card">
+        <img src="#" alt="" class="card__mask-card" />
+        <h2 class="card__mesto"></h2>
+        <button type="button" class="card__like" id="card_like"></button>
+        <button
+          type="button"
+          class="card__del-card"
+          id="button-del-card"
+        ></button>
+      </li>
+    </template>
+    <!-- <script type="module" src="./scripts/index.js"></script> -->
+  </body>
+</html>
