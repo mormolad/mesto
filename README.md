@@ -6,7 +6,6 @@
 
 использовано:
 
-- Figma
 - HTML
 - CSS
 - JavaScript
