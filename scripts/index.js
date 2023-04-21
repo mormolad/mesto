@@ -47,16 +47,16 @@ function renderPopupImage(data) {
   popupOpenImage.open(data);
 }
 // обработчик кнопки принять в форме добавления места
-function handlePlaceFormSubmit() {
-  const card = new Card({ name: inputNamePlace.value, link: inputUrlImagePlace.value }, selectorTemplateCard, renderPopupImage);
+function handlePlaceFormSubmit(data) {
+  const card = new Card({ name: data.name, link: data.description }, selectorTemplateCard, renderPopupImage);
   cardsContainer.prepend(card.render());
 }
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(data) {
   userInfo.setUserInfo({
-    name: inputName.value,
-    employment: inputEmployment.value,
+    name: data.name,
+    employment: data.description,
   });
   popupEditUser.close();
 }
