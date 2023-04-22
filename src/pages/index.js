@@ -62,7 +62,7 @@ function renderPopupImage(data) {
 }
 // обработчик кнопки принять в форме добавления места
 function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
-  const card = new Card(
+  const card = new Card( //Для каждой карточки создайте экземпляр класса Card - это из задания, я и создаю такой экземпляр, все остальное уже в нем. а за отрисовку и возврат карточки отвечает метод render()
     { name: inputPlaceName, link: inputURLImage },
     selectorTemplateCard,
     renderPopupImage
