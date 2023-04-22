@@ -11,6 +11,7 @@ import './index.css';
 const buttonEdit = document.querySelector('#profile__edit-button');
 const buttonAdd = document.querySelector('#profile__add-button');
 const selectorTemplateCard = '#card-item';
+
 //обращаемся к классу для создания элемента вставки на страницу
 const allCards = new Section(
   {

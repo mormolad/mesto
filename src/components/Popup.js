@@ -28,12 +28,8 @@ export default class Popup {
       this.close();
     }
   }
-  // // закрыть попап крестиком
-  // _closePopupButtonClose(evt) {
-  //   const popupCurrent = evt.target.closest('.popup');
-  //   this.close();
-  // }
 
+  // установка слушателей
   setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
       this._closePopupClickOnOverlay(evt);
