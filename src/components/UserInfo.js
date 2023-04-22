@@ -4,7 +4,10 @@ export default class UserInfo {
     this._employment = document.querySelector(selectorEmployment);
   }
   getUserInfo() {
-    return { name: this._name, employment: this._employment };
+    return {
+      name: this._name.innerText,
+      employment: this._employment.innerText,
+    };
   }
   setUserInfo({ name, employment }) {
     this._name.textContent = name;

@@ -7,7 +7,7 @@ const validationOptions = {
   inputSectionSelector: '.popup__form-section',
   inputErrorSelector: '.popup__message-error',
   inputErrorClass: 'popup__field_state-invalid',
-  formIsInvalid: 'popup__submit_disable',
+  inactiveButtonClass: 'popup__submit_disable',
 };
 
 export default validationOptions;

@@ -1,10 +1,8 @@
 export default class Popup {
   constructor(selectorPopup) {
-    this._selectorPopup = selectorPopup;
-    this._popup = document.querySelector(this._selectorPopup);
-    this._overlayPopup = this._popup.querySelector('.popup');
+    this._popup = document.querySelector(selectorPopup);
     this._buttonClose = this._popup.querySelector('.popup__close-popup');
-    //this._form = this._popup.querySelector('#content-popup-add-card');
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
   //закрытие всплывающего окна при нажатии Esc
   _handleEscClose(currentEvt) {
@@ -15,7 +13,7 @@ export default class Popup {
   //показать всплывающее окно
   open() {
     this._popup.classList.add('popup_enable');
-    window.addEventListener('keydown', this._handleEscClose.bind(this));
+    window.addEventListener('keydown', this._handleEscClose);
   }
 
   //закрыть всплывающее окно
@@ -27,21 +25,21 @@ export default class Popup {
   //закрытие всплывающего окна при нажатии вне его пространства
   _closePopupClickOnOverlay(evt) {
     if (evt.currentTarget === evt.target) {
-      this.close(evt.target);
+      this.close();
     }
   }
-  // закрыть попап крестиком
-  _closePopupButtonClose(evt) {
-    const popupCurrent = evt.target.closest('.popup');
-    this.close(popupCurrent);
-  }
+  // // закрыть попап крестиком
+  // _closePopupButtonClose(evt) {
+  //   const popupCurrent = evt.target.closest('.popup');
+  //   this.close();
+  // }
 
   setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
       this._closePopupClickOnOverlay(evt);
     });
     this._buttonClose.addEventListener('click', (evt) => {
-      this._closePopupButtonClose(evt);
+      this.close();
     });
   }
 }

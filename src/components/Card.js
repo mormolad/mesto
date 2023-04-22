@@ -1,33 +1,26 @@
 class Card {
   constructor(item, selectorTemplate, handleCardClick) {
     this._name = item.name;
-    //this._link = `<%=require('${item.link}')%>`;
     this._link = item.link;
     this._selectorTemplate = selectorTemplate;
     this._handleCardClick = handleCardClick;
-    this._template = document
-      .querySelector(this._selectorTemplate)
-      .content.querySelector('.card');
     this._sampleCard = this._getTemplate();
     this._imageCard = this._sampleCard.querySelector('.card__mask-card');
     this._nameCard = this._sampleCard.querySelector('.card__mesto');
   }
 
-  _handleListener() {
+  _setListener() {
     //устанавливаем слушатель лайка
     this._sampleCard
-      .querySelector('#card_like')
+      .querySelector('.card__like')
       .addEventListener('click', this._like);
     //устанавливаем слушатель для открытия попапа с картинкой
-    console.log(this._link);
-    this._sampleCard
-      .querySelector('.card__mask-card')
-      .addEventListener('click', () => {
-        this._handleCardClick({ name: this._name, link: this._link });
-      });
+    this._imageCard.addEventListener('click', () => {
+      this._handleCardClick({ name: this._name, link: this._link });
+    });
     //устанавливаем слушатель удаления карточки
     this._sampleCard
-      .querySelector('#button-del-card')
+      .querySelector('.card__del-card')
       .addEventListener('click', () => {
         this._deleteCard();
       });
@@ -35,6 +28,9 @@ class Card {
 
   // подготовить катрочку
   _getTemplate() {
+    this._template = document
+      .querySelector(this._selectorTemplate)
+      .content.querySelector('.card');
     return this._template.cloneNode(true);
   }
   // обработка кнопки лайка
@@ -51,7 +47,7 @@ class Card {
     this._imageCard.src = this._link;
     this._imageCard.alt = this._name;
     this._nameCard.textContent = this._name;
-    this._handleListener();
+    this._setListener();
     return this._sampleCard;
   }
 }

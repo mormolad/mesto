@@ -1,16 +1,15 @@
 ﻿'use strict';
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import validationOptions from './utils/validateOptions.js';
-import initialCards from './utils/dataCard.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import './pages/index.css';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import validationOptions from '../utils/validateOptions.js';
+import initialCards from '../utils/dataCard.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import './index.css';
 const buttonEdit = document.querySelector('#profile__edit-button');
 const buttonAdd = document.querySelector('#profile__add-button');
-const cardsContainer = document.querySelector('.cards');
 const selectorTemplateCard = '#card-item';
 //обращаемся к классу для создания элемента вставки на страницу
 const allCards = new Section(
@@ -28,12 +27,8 @@ const popupAddCard = new PopupWithForm(
   '#popup-add-card',
   handlePlaceFormSubmit
 );
-const inputNamePlace = popupAddCard._popup.querySelector('#input-place-name');
-const inputUrlImagePlace = popupAddCard._popup.querySelector(
-  '#input-url-image-place'
-);
 //вставляем готовый элемент на страницу
-allCards.rendererCards();
+allCards.renderCards();
 //создаём экземпляр класса для попапа с картинкой места
 const popupOpenImage = new PopupWithImage('#popup-image');
 //создаём экземпляр класса попапа с формой для редактирования профиля
@@ -66,22 +61,21 @@ function renderPopupImage(data) {
   popupOpenImage.open(data);
 }
 // обработчик кнопки принять в форме добавления места
-function handlePlaceFormSubmit(data) {
+function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
   const card = new Card(
-    { name: data.name, link: data.description },
+    { name: inputPlaceName, link: inputURLImage },
     selectorTemplateCard,
     renderPopupImage
   );
-  cardsContainer.prepend(card.render());
+  allCards.addItem(card.render());
 }
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
-function handleProfileFormSubmit(data) {
+function handleProfileFormSubmit({ inputUserName, inputUserEmployment }) {
   userInfo.setUserInfo({
-    name: data.name,
-    employment: data.description,
+    name: inputUserName,
+    employment: inputUserEmployment,
   });
-  popupEditUser.close();
 }
 
 //устанавливаем слушатели для экземпляра попапа добовления места
@@ -97,8 +91,8 @@ popupEditUser.setEventListeners();
 buttonEdit.addEventListener('click', () => {
   validationPopupEditUser.resetErrorInputs();
   const { name, employment } = userInfo.getUserInfo();
-  inputName.value = name.innerText;
-  inputEmployment.value = employment.innerText;
+  inputName.value = name;
+  inputEmployment.value = employment;
   popupEditUser.open();
 });
 //устанавливаем слушатели на попап с картинкой

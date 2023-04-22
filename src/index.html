@@ -10,8 +10,7 @@
     />
     <meta name="keywords" content="HTML5, CSS, JS" />
     <meta name="author" content="Антон Перевалов" />
-    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
-    <link href="./images/logo-page.ico" rel="icon" />
+    <link href="<%=require('./images/logo-page.ico')%>" rel="icon" />
     <title>Научиться учиться</title>
   </head>
 
@@ -148,7 +147,7 @@
             type="text"
             class="popup__field"
             id="input-place-name"
-            name="input-place-name"
+            name="inputPlaceName"
             placeholder="Название нового места"
             minlength="2"
             maxlength="30"
@@ -161,7 +160,7 @@
             type="url"
             class="popup__field"
             id="input-url-image-place"
-            name="input-url-image-place"
+            name="inputURLImage"
             placeholder="URL картинки"
             required
           />
@@ -184,7 +183,7 @@
       </form>
     </div>
 
-    <div class="popup" id="popup-image">
+    <div class="popup popup_image" id="popup-image">
       <div
         class="popup__content-image"
         id="popup-image__content"
@@ -210,12 +209,8 @@
       <li class="card">
         <img src="#" alt="" class="card__mask-card" />
         <h2 class="card__mesto"></h2>
-        <button type="button" class="card__like" id="card_like"></button>
-        <button
-          type="button"
-          class="card__del-card"
-          id="button-del-card"
-        ></button>
+        <button type="button" class="card__like"></button>
+        <button type="button" class="card__del-card"></button>
       </li>
     </template>
     <!-- <script type="module" src="./scripts/index.js"></script> -->

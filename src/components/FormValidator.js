@@ -6,7 +6,7 @@ export default class FormValidator {
     this._inputSectionSelector = validationOptions.inputSectionSelector;
     this._inputErrorSelector = validationOptions.inputErrorSelector;
     this._inputErrorClass = validationOptions.inputErrorClass;
-    this._formIsInvalid = validationOptions.formIsInvalid;
+    this._inactiveButtonClass = validationOptions.inactiveButtonClass;
     this._form = form;
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._buttonSubmit = this._form.querySelector(this._submitButtonSelector);
@@ -29,7 +29,7 @@ export default class FormValidator {
   }
 
   //убрать сообщение об ошибки валидации и подчеркнуть черным поле ввода
-  _hiddenError(errorElement, inputElement) {
+  _hideError(errorElement, inputElement) {
     errorElement.innerText = '';
     inputElement.classList.remove(this._inputErrorClass);
   }
@@ -37,23 +37,27 @@ export default class FormValidator {
   //переключение состояния поля ввода
   _toggleInputState(inputElement) {
     const errorElement = this._getSpanError(inputElement);
-    inputElement.validity.valid ? this._hiddenError(errorElement, inputElement) : this._showError(errorElement, inputElement);
+    inputElement.validity.valid
+      ? this._hideError(errorElement, inputElement)
+      : this._showError(errorElement, inputElement);
   }
 
   _getSpanError(inputElement) {
-    const inputSectionElement = inputElement.closest(this._inputSectionSelector);
+    const inputSectionElement = inputElement.closest(
+      this._inputSectionSelector
+    );
     return inputSectionElement.querySelector(this._inputErrorSelector);
   }
 
   //кнопка найдена
   _enableButton() {
     this._buttonSubmit.removeAttribute('disabled');
-    this._buttonSubmit.classList.remove(this._formIsInvalid);
+    this._buttonSubmit.classList.remove(this._inactiveButtonClass);
   }
   //кнопка скрыта
   _disableButton() {
     this._buttonSubmit.setAttribute('disabled', true);
-    this._buttonSubmit.classList.add(this._formIsInvalid);
+    this._buttonSubmit.classList.add(this._inactiveButtonClass);
   }
   //переключение состояния кнопки сохранить
   _toggleButtonState() {
@@ -66,7 +70,7 @@ export default class FormValidator {
   //обнулить поля ошибок при закрытии окна
   resetErrorInputs() {
     this._inputs.forEach((inputElement) => {
-      this._hiddenError(this._getSpanError(inputElement), inputElement);
+      this._hideError(this._getSpanError(inputElement), inputElement);
     });
     this._toggleButtonState();
   }
