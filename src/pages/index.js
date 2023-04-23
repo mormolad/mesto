@@ -8,6 +8,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
+
 const buttonEdit = document.querySelector('#profile__edit-button');
 const buttonAdd = document.querySelector('#profile__add-button');
 const selectorTemplateCard = '#card-item';
@@ -17,7 +18,7 @@ const allCards = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, selectorTemplateCard, renderPopupImage);
+      const card = createCard(item, selectorTemplateCard, renderPopupImage);
       return card.render();
     },
   },
@@ -28,6 +29,11 @@ const popupAddCard = new PopupWithForm(
   '#popup-add-card',
   handlePlaceFormSubmit
 );
+
+const createCard = (item, selectorTemplateCard, renderPopup) => {
+  return new Card(item, selectorTemplateCard, renderPopup);
+};
+
 //вставляем готовый элемент на страницу
 allCards.renderCards();
 //создаём экземпляр класса для попапа с картинкой места
@@ -63,7 +69,7 @@ function renderPopupImage(data) {
 }
 // обработчик кнопки принять в форме добавления места
 function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
-  const card = new Card( //Для каждой карточки создайте экземпляр класса Card - это из задания, я и создаю такой экземпляр, все остальное уже в нем. а за отрисовку и возврат карточки отвечает метод render()
+  const card = createCard(
     { name: inputPlaceName, link: inputURLImage },
     selectorTemplateCard,
     renderPopupImage
