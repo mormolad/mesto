@@ -31,7 +31,9 @@ const popupAddCard = new PopupWithForm(
 );
 
 const createCard = (item, selectorTemplateCard, renderPopup) => {
-  return new Card(item, selectorTemplateCard, renderPopup);
+  const newCard = new Card(item, selectorTemplateCard, renderPopup);
+  newCard.render();
+  return newCard;
 };
 
 //вставляем готовый элемент на страницу
