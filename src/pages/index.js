@@ -17,10 +17,8 @@ const selectorTemplateCard = '#card-item';
 const allCards = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      const card = createCard(item, selectorTemplateCard, renderPopupImage);
-      return card.render();
-    },
+    renderer: (item) =>
+      createCard(item, selectorTemplateCard, renderPopupImage),
   },
   '.cards'
 );
@@ -32,8 +30,7 @@ const popupAddCard = new PopupWithForm(
 //функция возвращающая экземпляр класса Card
 const createCard = (item, selectorTemplateCard, renderPopup) => {
   const newCard = new Card(item, selectorTemplateCard, renderPopup);
-  newCard.render();
-  return newCard;
+  return newCard.render();
 };
 //вставляем готовый элемент на страницу
 allCards.renderCards();
@@ -77,7 +74,7 @@ function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
     selectorTemplateCard,
     renderPopupImage
   );
-  allCards.addItem(card.render());
+  allCards.addItem(card);
 }
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
