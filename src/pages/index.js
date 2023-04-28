@@ -27,16 +27,16 @@ const popupAddCard = new PopupWithForm(
   '#popup-add-card',
   handlePlaceFormSubmit
 );
-
+//функция возвращающая экземпляр класса Card
 const createCard = (item, selectorTemplateCard, renderPopup) => {
   const newCard = new Card(item, selectorTemplateCard, renderPopup);
   return newCard.render();
 };
-
 //вставляем готовый элемент на страницу
 allCards.renderCards();
 //создаём экземпляр класса для попапа с картинкой места
 const popupOpenImage = new PopupWithImage('#popup-image');
+
 //создаём экземпляр класса попапа с формой для редактирования профиля
 const popupEditUser = new PopupWithForm(
   '#popup-edit-user',
@@ -52,6 +52,7 @@ const validationPopupEditUser = new FormValidator(
   popupEditUser.form
 );
 validationPopupEditUser.enableValidation();
+
 //включаем валидацию
 const validationPopupAddCard = new FormValidator(
   validationOptions,
