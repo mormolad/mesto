@@ -97,13 +97,10 @@ function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
 function handleProfileFormSubmit({ inputUserName, inputUserEmployment }) {
-  userInfo.setUserInfo(
-    {
-      name: inputUserName,
-      employment: inputUserEmployment,
-    },
-    api
-  );
+  userInfo.setUserInfo({
+    name: inputUserName,
+    employment: inputUserEmployment,
+  });
 }
 
 //устанавливаем слушатели для экземпляра попапа добовления места
