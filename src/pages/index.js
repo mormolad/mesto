@@ -73,12 +73,6 @@ const validationPopupAddCard = new FormValidator(
   popupAddCard.form
 );
 validationPopupAddCard.enableValidation();
-
-api.getInfoUser().then((data) => {
-  inputName.innerText = data.name;
-  inputEmployment.value = data.about;
-  console.log(inputName);
-});
 const userInfo = new UserInfo(
   {
     selectorName: '#profile__username',
@@ -86,6 +80,10 @@ const userInfo = new UserInfo(
   },
   api
 );
+
+api.getInfoUser().then((data) => {
+  userInfo.setUserInfo({ name: data.name, employment: data.about });
+});
 
 //функция открытия попапа
 function renderPopupImage(data) {
