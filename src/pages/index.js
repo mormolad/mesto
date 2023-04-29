@@ -59,6 +59,7 @@ const inputName = popupEditUser.form.querySelector('#input-user-name');
 const inputEmployment = popupEditUser.form.querySelector(
   '#input-user-employment'
 );
+
 //включаем валидацию
 const validationPopupEditUser = new FormValidator(
   validationOptions,
@@ -73,6 +74,11 @@ const validationPopupAddCard = new FormValidator(
 );
 validationPopupAddCard.enableValidation();
 
+api.getInfoUser().then((data) => {
+  inputName.innerText = data.name;
+  inputEmployment.value = data.about;
+  console.log(inputName);
+});
 const userInfo = new UserInfo(
   {
     selectorName: '#profile__username',
@@ -115,9 +121,14 @@ popupEditUser.setEventListeners();
 //устанавливаем слушатель на кнопку открытия попапа редактирования профиля
 buttonEdit.addEventListener('click', () => {
   validationPopupEditUser.resetErrorInputs();
-  const { name, employment } = userInfo.getUserInfo();
-  inputName.value = name;
-  inputEmployment.value = employment;
+  api.getInfoUser().then((data) => {
+    inputName.value = data.name;
+    inputEmployment.value = data.about;
+  });
+  console.log();
+
+  //const { name, employment } = userInfo.getUserInfo();
+
   popupEditUser.open();
 });
 //устанавливаем слушатели на попап с картинкой
