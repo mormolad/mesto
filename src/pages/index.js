@@ -7,11 +7,24 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import './index.css';
 
 const buttonEdit = document.querySelector('#profile__edit-button');
 const buttonAdd = document.querySelector('#profile__add-button');
 const selectorTemplateCard = '#card-item';
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-64/',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: 'd4a51a23-0a5f-43d2-97c6-3365875fbcaa',
+  },
+});
+// const aaa = api.getInfoUser().then((data) => {
+//   console.log(data.name);
+//   return data;
+// });
 
 //обращаемся к классу для создания элемента вставки на страницу
 const allCards = new Section(
@@ -59,10 +72,15 @@ const validationPopupAddCard = new FormValidator(
   popupAddCard.form
 );
 validationPopupAddCard.enableValidation();
-const userInfo = new UserInfo({
-  selectorName: '#profile__username',
-  selectorEmployment: '#profile__employment',
-});
+
+const userInfo = new UserInfo(
+  {
+    selectorName: '#profile__username',
+    selectorEmployment: '#profile__employment',
+  },
+  api
+);
+
 //функция открытия попапа
 function renderPopupImage(data) {
   popupOpenImage.open(data);
@@ -79,10 +97,13 @@ function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
 
 //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
 function handleProfileFormSubmit({ inputUserName, inputUserEmployment }) {
-  userInfo.setUserInfo({
-    name: inputUserName,
-    employment: inputUserEmployment,
-  });
+  userInfo.setUserInfo(
+    {
+      name: inputUserName,
+      employment: inputUserEmployment,
+    },
+    api
+  );
 }
 
 //устанавливаем слушатели для экземпляра попапа добовления места

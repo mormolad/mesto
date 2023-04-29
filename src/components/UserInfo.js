@@ -1,13 +1,17 @@
 export default class UserInfo {
-  constructor({ selectorName, selectorEmployment }) {
+  constructor({ selectorName, selectorEmployment }, api) {
     this._name = document.querySelector(selectorName);
     this._employment = document.querySelector(selectorEmployment);
+    this._api = api;
   }
   getUserInfo() {
-    return {
-      name: this._name.innerText,
-      employment: this._employment.innerText,
-    };
+    this._api.getInfoUser().then((data) => {
+      console.log(data.name);
+      return {
+        name: data.name,
+        employment: data.about,
+      };
+    });
   }
   setUserInfo({ name, employment }) {
     this._name.textContent = name;
