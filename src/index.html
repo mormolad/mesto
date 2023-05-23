@@ -38,16 +38,12 @@
               class="profile__username"
               id="profile__username"
               title="Имя пользователя"
-            >
-              Жак-Ив Кусто
-            </h1>
+            ></h1>
             <p
               class="profile__employment"
               id="profile__employment"
               title="род деятельности"
-            >
-              Исследователь oкеана
-            </p>
+            ></p>
           </div>
           <button
             type="button"
@@ -95,7 +91,7 @@
             maxlength="40"
             placeholder="Имя автора"
             required
-            value="Жак-Ив Кусто"
+            value=""
           />
           <span class="popup__message-error"></span>
         </div>
@@ -109,7 +105,7 @@
             maxlength="200"
             placeholder="Род деятельности"
             required
-            value="Исследователь oкеана"
+            value=""
           />
           <span class="popup__message-error"></span>
         </div>
@@ -205,14 +201,40 @@
       </div>
     </div>
 
+    <div
+      class="popup popup_delete"
+      id="popup-delete"
+      title="модальное окно подтверждения удаления места"
+    >
+      <form class="popup__content popup__content_del">
+        <h3 class="popup__title" id="title-popup-del-card">Вы уверены?</h3>
+        <button
+          type="submit"
+          title="Удалить место"
+          class="popup__submit popup__submit_del"
+          id="button-submit-del-card"
+        >
+          Да
+        </button>
+        <button
+          type="button"
+          title="закрыть модальное окно"
+          class="popup__close-popup"
+          id="button-del-card"
+        ></button>
+      </form>
+    </div>
+
     <template id="card-item">
       <li class="card">
         <img src="#" alt="" class="card__mask-card" />
         <h2 class="card__mesto"></h2>
-        <button type="button" class="card__like"></button>
+        <div class="card__likesAndNumber">
+          <button type="button" class="card__like"></button>
+          <p class="card__numberOfLike"></p>
+        </div>
         <button type="button" class="card__del-card"></button>
       </li>
     </template>
-    <!-- <script type="module" src="./scripts/index.js"></script> -->
   </body>
 </html>

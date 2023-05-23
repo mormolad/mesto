@@ -6,7 +6,6 @@ export default class UserInfo {
   }
   getUserInfo() {
     this._api.getInfoUser().then((data) => {
-      console.log(data.name);
       return {
         name: data.name,
         employment: data.about,
