@@ -51,6 +51,7 @@ export default class Api {
         console.log(err);
       });
   }
+  //установить новую карточку
   setNewCadr({ name, link }) {
     return fetch(`${this.url}cards`, {
       method: 'POST',
@@ -67,7 +68,7 @@ export default class Api {
         console.log(err);
       });
   }
-
+  //удалить карточку
   deleteCard(idCard) {
     return fetch(`${this.url}cards/${idCard}`, {
       method: 'DELETE',
@@ -83,7 +84,7 @@ export default class Api {
         console.log(err);
       });
   }
-
+  //удалить лайк
   deleteLike(idCard) {
     return fetch(`${this.url}cards/${idCard}/likes`, {
       method: 'DELETE',
@@ -99,6 +100,7 @@ export default class Api {
         console.log(err);
       });
   }
+  //поставить лайк
   setLike(idCard) {
     return fetch(`${this.url}cards/${idCard}/likes`, {
       method: 'PUT',
@@ -114,11 +116,12 @@ export default class Api {
         console.log(err);
       });
   }
+  //установить новый аватар
   setAvatar(urlAvatar) {
     return fetch(`${this.url}users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify(urlAvatar),
+      body: JSON.stringify({ avatar: urlAvatar }),
     })
       .then((res) => {
         if (res.ok) {

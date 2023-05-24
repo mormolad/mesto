@@ -27,11 +27,11 @@
         class="profile"
         title="коротко о пользователе: аватарка, имя, род деятельности"
       >
-        <img
-          src="<%=require('./images/avatar.jpg')%>"
-          alt="фото пользователя"
-          class="profile__avatar"
-        />
+        <div class="profile__block-with-avatar">
+          <div class="profile__overlay" id="profile__edit-avatar"></div>
+          <img src="" alt="фото пользователя" class="profile__avatar" />
+        </div>
+
         <div class="profile__edit">
           <div class="profile__info">
             <h1
@@ -175,6 +175,48 @@
           title="закрыть модальное окно"
           class="popup__close-popup"
           id="button-close-popup-add-card"
+        ></button>
+      </form>
+    </div>
+
+    <div
+      class="popup"
+      id="popup-add-new-avatar"
+      title="модальное окно редактирования"
+    >
+      <form
+        class="popup__content popup__content_avatar"
+        name="form-popup"
+        id="content-add-new-avatar"
+        novalidate
+      >
+        <h3 class="popup__title" id="title-popup-add-new-avatar">
+          Обновть аватар?
+        </h3>
+        <div class="popup__form-section">
+          <input
+            type="url"
+            class="popup__field"
+            id="input-url-new-avatar"
+            name="inputURLAvatar"
+            placeholder="URL картинки"
+            required
+          />
+          <span class="popup__message-error"></span>
+        </div>
+        <button
+          type="submit"
+          title="сохранить информацию"
+          class="popup__submit"
+          id="button-submit-popup-new-avatar"
+        >
+          Сохранить
+        </button>
+        <button
+          type="button"
+          title="закрыть модальное окно"
+          class="popup__close-popup"
+          id="button-close-popup-add-new-avatar"
         ></button>
       </form>
     </div>

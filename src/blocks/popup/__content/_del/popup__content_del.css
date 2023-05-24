@@ -2,9 +2,3 @@
   grid-template-rows: minmax(59px, auto) 100px;
   top: -110px;
 }
-
-@media screen and (max-width: 1023px) {
-  .popup__content_del {
-    grid-template-rows: minmax(59px, auto) 100px;
-  }
-}
