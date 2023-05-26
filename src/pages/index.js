@@ -86,13 +86,29 @@ const createCard = (item, selectorTemplateCard, renderPopup, ownerPageId) => {
   const newCard = new Card(
     item,
     selectorTemplateCard,
-    renderPopup,
     ownerPageId,
     popupDelCard,
-    api
+    renderPopup,
+    handleClickLike
   );
+  //newCard.setLike();
   return newCard.render();
 };
+
+// обработка кнопки лайка
+function handleClickLike(stateLike, idCard) {
+  console.log('доходит', stateLike);
+
+  stateLike
+    ? api.deleteLike(idCard).then((data) => {
+        console.log('del', data);
+        return data;
+      })
+    : api.setLike(idCard).then((data) => {
+        console.log('set', data);
+        return data;
+      });
+}
 
 //включаем валидацию
 validationPopupEditUser.enableValidation();

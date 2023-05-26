@@ -2,10 +2,10 @@ class Card {
   constructor(
     item,
     selectorTemplate,
-    handleCardClick,
     idOwnerPage,
     popupDelCard,
-    api
+    handleCardClick,
+    handlerLike
   ) {
     this._name = item.name;
     this._link = item.link;
@@ -23,14 +23,17 @@ class Card {
     this._buttonLike = this._sampleCard.querySelector('.card__like');
     this._likesOfNumber.textContent = this._likes.length;
     this._popupDel = popupDelCard;
-    this._api = api;
+    this._handlerLike = handlerLike;
   }
 
-  _setListener() {
+  _setListeners() {
     //устанавливаем слушатель лайка
     this._buttonLike.addEventListener('click', () => {
-      this._hendlerLike();
+      this._handlerLike(this._checkOwnerLike(), this._idCard);
+      this.renderButtonLike();
+      this._likesOfNumber.textContent = this._likes.length;
     });
+
     //устанавливаем слушатель для открытия попапа с картинкой
     this._imageCard.addEventListener('click', () => {
       this._handleCardClick({ name: this._name, link: this._link });
@@ -45,39 +48,21 @@ class Card {
     return this._template.cloneNode(true);
   }
 
-  // обработка кнопки лайка
-  _hendlerLike() {
-    if (this._checkOwnerLike()) {
-      this._api.deleteLike(this._idCard).then((data) => {
-        this._renderButtonLikeClick();
-        this._likes = data.likes;
-        this._likesOfNumber.textContent = this._likes.length;
-      });
-    } else {
-      this._api.setLike(this._idCard).then((data) => {
-        this._renderButtonLikeClick();
-        this._likes = data.likes;
-        this._likesOfNumber.textContent = this._likes.length;
-      });
-    }
-  }
+  // //отрисовать сердечко при установки лайка
+  // _renderButtonLikeClick() {
+  //   if (this._checkOwnerLike()) {
+  //     this._buttonLike.classList.remove('card__like_state_active');
+  //   } else {
+  //     this._buttonLike.classList.add('card__like_state_active');
+  //   }
+  // }
 
-  //отрисовать сердечко при установки лайка
-  _renderButtonLikeClick() {
-    if (this._checkOwnerLike()) {
-      this._buttonLike.classList.remove('card__like_state_active');
-    } else {
-      this._buttonLike.classList.add('card__like_state_active');
-    }
-  }
+  //отрисовать сердечко
+  renderButtonLike() {
+    this._checkOwnerLike()
+      ? this._buttonLike.classList.add('card__like_state_active')
+      : this._buttonLike.classList.remove('card__like_state_active');
 
-  //отрисовать сердечко при изначавльной отрисовки страници
-  _renderButtonLike() {
-    if (this._checkOwnerLike()) {
-      this._buttonLike.classList.add('card__like_state_active');
-    } else {
-      this._buttonLike.classList.remove('card__like_state_active');
-    }
     this._likesOfNumber.textContent = this._likes.length;
   }
 
@@ -104,8 +89,8 @@ class Card {
     this._imageCard.src = this._link;
     this._imageCard.alt = this._name;
     this._nameCard.textContent = this._name;
-    this._renderButtonLike();
-    this._setListener();
+    this.renderButtonLike();
+    this._setListeners();
     this._setButtonDeleteCard();
     return this._sampleCard;
   }
