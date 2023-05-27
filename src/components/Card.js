@@ -68,7 +68,7 @@ class Card {
   _setButtonDeleteCard() {
     if (this._idOwnerCard === this._idOwnerPage) {
       this._buttonDelCard.addEventListener('click', (evt) => {
-        this._handlePopupDelCard(this._idCard, evt.target.parentNode);
+        this._handlePopupDelCard(this._idCard, this._sampleCard);
       });
     } else {
       this._buttonDelCard.remove('card__del-card');

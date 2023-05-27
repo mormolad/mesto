@@ -1,16 +1,15 @@
 export default class UserInfo {
-  constructor(
-    { selectorName, selectorEmployment, selectorAvatar },
-    getUserInfo
-  ) {
+  constructor({ selectorName, selectorEmployment, selectorAvatar }) {
     this._name = document.querySelector(selectorName);
     this._employment = document.querySelector(selectorEmployment);
     this._avatar = document.querySelector(selectorAvatar);
-    this._getUserInfo = getUserInfo;
   }
   // взять информацию о пользователе
   getUserInfo() {
-    this._getUserInfo();
+    return {
+      name: this._name.textContent,
+      employment: this._employment.textContent,
+    };
   }
 
   //настроить имя пользователя и профессию

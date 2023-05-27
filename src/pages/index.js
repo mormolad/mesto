@@ -45,6 +45,7 @@ const popupAddCard = new PopupWithForm(
       })
       .catch((err) => console.log(`Ошибка.....: ${err}`))
       .finally(() => {
+        popupAddCard.close();
         popupAddCard.renderButton(false);
       });
   }
@@ -59,6 +60,7 @@ const popupEditAvatar = new PopupWithForm('#popup-add-new-avatar', (link) => {
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(() => {
+      popupEditAvatar.close();
       popupEditAvatar.renderButton(false);
     });
 });
@@ -93,6 +95,7 @@ const popupEditUser = new PopupWithForm(
       )
       .catch((err) => console.log(`Ошибка.....: ${err}`))
       .finally(() => {
+        popupEditUser.close();
         popupEditUser.renderButton(false);
       });
   }
@@ -122,23 +125,11 @@ const validationPopupEditAvatar = new FormValidator(
   popupEditAvatar.form
 );
 //работа с информацией о пользователе
-const userInfo = new UserInfo(
-  {
-    selectorName: '#profile__username',
-    selectorEmployment: '#profile__employment',
-    selectorAvatar: '.profile__avatar',
-  },
-  () => {
-    api
-      .getInfoUser()
-      .then((data) => {
-        inputName.value = data.name;
-        inputEmployment.value = data.about;
-        validationPopupEditUser.resetErrorInputs();
-      })
-      .catch((err) => console.log(`Ошибка.....: ${err}`));
-  }
-);
+const userInfo = new UserInfo({
+  selectorName: '#profile__username',
+  selectorEmployment: '#profile__employment',
+  selectorAvatar: '.profile__avatar',
+});
 
 //функция возвращающая экземпляр класса Card
 const createCard = (item, selectorTemplateCard, renderPopup, ownerPageId) => {
@@ -218,7 +209,10 @@ popupEditAvatar.setEventListeners();
 
 //устанавливаем слушатель на кнопку открытия попапа редактирования профиля
 buttonEdit.addEventListener('click', () => {
-  userInfo.getUserInfo();
+  const data = userInfo.getUserInfo();
+  inputName.value = data.name;
+  inputEmployment.value = data.employment;
+  validationPopupEditUser.resetErrorInputs();
   popupEditUser.open();
 });
 //устанавливаем слушатели на попап с картинкой
