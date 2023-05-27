@@ -1,27 +1,28 @@
 import Popup from './Popup.js';
 
 export default class PopupDeleteCard extends Popup {
-  constructor(selectorPopup, api) {
+  constructor(selectorPopup, deleteCard) {
     super(selectorPopup);
     this.form = this._popup.querySelector('.popup__content');
-    this._api = api;
+    this._deleteCard = deleteCard;
+    this._idCard = '';
+    this._card = '';
   }
 
   //добавить обработчик клика сабмита формы.
-  setEventListeners(idCard, card) {
+  setEventListeners() {
     this.form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._api.deleteCard(idCard).then(() => {
-        card.remove();
-        super.close();
-      });
+      this._deleteCard(this._idCard, this._card);
     });
     super.setEventListeners();
   }
 
   //открыть попап удаления карточки
   open(idCard, card) {
-    this.setEventListeners(idCard, card);
+    this._idCard = idCard;
+    this._card = card;
+    //this.setEventListeners(idCard, card);
     super.open();
   }
 }

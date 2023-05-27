@@ -24,30 +24,80 @@ const api = new Api({
 });
 
 //обращаемся к классу для создания элемента вставки на страницу
-const allCards = new Section('.cards');
+const cardsContainer = new Section('.cards');
 
 //создаём экземпляр класса попапа с формой для добовления места
 const popupAddCard = new PopupWithForm(
   '#popup-add-card',
-  handlePlaceFormSubmit
+  // обработчик кнопки принять в форме добавления места
+  ({ inputPlaceName, inputURLImage }) => {
+    popupAddCard.renderButton(true);
+    api
+      .setNewCadr({ name: inputPlaceName, link: inputURLImage })
+      .then((res) => {
+        const card = createCard(
+          res,
+          selectorTemplateCard,
+          renderPopupImage,
+          res.owner._id
+        );
+        cardsContainer.addItem(card);
+      })
+      .catch((err) => console.log(`Ошибка.....: ${err}`))
+      .finally(() => {
+        popupAddCard.renderButton(false);
+      });
+  }
 );
 //создаём экземпляр класса попапа с формой для редактирования аватара
-const popupEditAvatar = new PopupWithForm(
-  '#popup-add-new-avatar',
-  handleFormEditAvatar
-);
+const popupEditAvatar = new PopupWithForm('#popup-add-new-avatar', (link) => {
+  popupEditAvatar.renderButton(true);
+  api
+    .setAvatar(link.inputURLAvatar)
+    .then((res) => {
+      userInfo.setAvatar(res.avatar);
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .finally(() => {
+      popupEditAvatar.renderButton(false);
+    });
+});
 
 //создаём экземпляр класса для попапа с картинкой места
 const popupOpenImage = new PopupWithImage('#popup-image');
 
 //создаём экземпляр класса для попапа подтверждения удаления места
-const popupDelCard = new PopupDeleteCard('.popup_delete', api);
+const popupDelCard = new PopupDeleteCard('.popup_delete', (idCard, card) => {
+  api
+    .deleteCard(idCard)
+    .then(() => {
+      card.remove();
+      popupDelCard.close();
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`));
+});
 
 //создаём экземпляр класса попапа с формой для редактирования профиля
 const popupEditUser = new PopupWithForm(
   '#popup-edit-user',
-  handleProfileFormSubmit
+  //обрботать форму редактирования информации о пользователе при нажатии кнопки submit
+  ({ inputUserName, inputUserEmployment }) => {
+    popupEditUser.renderButton(true);
+    api
+      .setUserData({ name: inputUserName, about: inputUserEmployment })
+      .then(
+        userInfo.setUserInfo({
+          name: inputUserName,
+          employment: inputUserEmployment,
+        })
+      )
+      .catch((err) => console.log(`Ошибка.....: ${err}`))
+      .finally(() => {
+        popupEditUser.renderButton(false);
+      });
+  }
 );
+
 const inputEditUrlAvatar = popupEditAvatar.form.querySelector(
   '#input-url-new-avatar'
 );
@@ -78,7 +128,16 @@ const userInfo = new UserInfo(
     selectorEmployment: '#profile__employment',
     selectorAvatar: '.profile__avatar',
   },
-  api
+  () => {
+    api
+      .getInfoUser()
+      .then((data) => {
+        inputName.value = data.name;
+        inputEmployment.value = data.about;
+        validationPopupEditUser.resetErrorInputs();
+      })
+      .catch((err) => console.log(`Ошибка.....: ${err}`));
+  }
 );
 
 //функция возвращающая экземпляр класса Card
@@ -87,96 +146,62 @@ const createCard = (item, selectorTemplateCard, renderPopup, ownerPageId) => {
     item,
     selectorTemplateCard,
     ownerPageId,
-    popupDelCard,
+    (idCard, card) => {
+      popupDelCard.open(idCard, card);
+    },
     renderPopup,
-    handleClickLike
+    (stateLike, idCard) => {
+      stateLike
+        ? api
+            .deleteLike(idCard)
+            .then((data) => {
+              newCard.likes = data.likes;
+              newCard.renderButtonLike();
+            })
+            .catch((err) => console.log(`Ошибка.....: ${err}`))
+        : api
+            .setLike(idCard)
+            .then((data) => {
+              newCard.likes = data.likes;
+              newCard.renderButtonLike();
+            })
+            .catch((err) => console.log(`Ошибка.....: ${err}`));
+    }
   );
-  //newCard.setLike();
   return newCard.render();
 };
-
-// обработка кнопки лайка
-function handleClickLike(stateLike, idCard) {
-  console.log('доходит', stateLike);
-
-  stateLike
-    ? api.deleteLike(idCard).then((data) => {
-        console.log('del', data);
-        return data;
-      })
-    : api.setLike(idCard).then((data) => {
-        console.log('set', data);
-        return data;
-      });
-}
 
 //включаем валидацию
 validationPopupEditUser.enableValidation();
 validationPopupAddCard.enableValidation();
 validationPopupEditAvatar.enableValidation();
 
-//информацию о пользователе с сервера
-api.getInfoUser().then((data) => {
-  userInfo.setUserInfo({
-    name: data.name,
-    employment: data.about,
-  });
-  userInfo.setAvatar(data.avatar);
-});
-
-//взять карты с сервера
-api.getCard().then((data) => {
-  const dataCard = data;
-  //берем информацию о пользователе что бы потом сравнить id
-  api.getInfoUser().then((data) => {
+Promise.all([api.getInfoUser(), api.getCard()])
+  .then((data) => {
+    // отрисовываем имя пользователя на странице и устанавливаем аватар
+    userInfo.setUserInfo({
+      name: data[0].name,
+      employment: data[0].about,
+    });
+    userInfo.setAvatar(data[0].avatar);
     //вставляем готовый элемент на страницу
-    allCards.renderCards({
-      items: dataCard.reverse(),
+    cardsContainer.renderCards({
+      items: data[1].reverse(),
       renderer: (item) => {
         return createCard(
           item,
           selectorTemplateCard,
           renderPopupImage,
-          data._id
+          data[0]._id
         );
       },
     });
-  });
-});
-
-// обработчик кнопки принять в форме добавления места
-function handlePlaceFormSubmit({ inputPlaceName, inputURLImage }) {
-  api.setNewCadr({ name: inputPlaceName, link: inputURLImage }).then((res) => {
-    const card = createCard(
-      res,
-      selectorTemplateCard,
-      renderPopupImage,
-      res.owner._id
-    );
-    allCards.addItem(card);
-  });
-}
-
-//обрботать форму редактирования информации о пользователе при нажатии кнопки submit
-function handleProfileFormSubmit({ inputUserName, inputUserEmployment }) {
-  api.setUserData({ name: inputUserName, about: inputUserEmployment }).then(
-    userInfo.setUserInfo({
-      name: inputUserName,
-      employment: inputUserEmployment,
-    })
-  );
-}
+  })
+  .catch((err) => console.log(`Ошибка.....: ${err}`));
 
 //функция открытия попапа
 function renderPopupImage(data) {
   popupOpenImage.open(data);
-}
-
-//обработчик формы для редактирования аватара
-function handleFormEditAvatar(link) {
-  api.setAvatar(link.inputURLAvatar).then((res) => {
-    userInfo.setAvatar(res.avatar);
-  });
 }
 
 //устанавливаем слушатели для экземпляра попапа добовления места
@@ -193,20 +218,15 @@ popupEditAvatar.setEventListeners();
 
 //устанавливаем слушатель на кнопку открытия попапа редактирования профиля
 buttonEdit.addEventListener('click', () => {
-  api.getInfoUser().then((data) => {
-    inputName.value = data.name;
-    inputEmployment.value = data.about;
-    validationPopupEditUser.resetErrorInputs();
-  });
+  userInfo.getUserInfo();
   popupEditUser.open();
 });
 //устанавливаем слушатели на попап с картинкой
 popupOpenImage.setEventListeners();
 //устанавливаем слушатель на иконку редактирования аватара
 buttonEditAvatar.addEventListener('click', () => {
-  api.getInfoUser().then((data) => {
-    inputEditUrlAvatar.value = data.avatar;
-    validationPopupEditAvatar.resetErrorInputs();
-  });
+  validationPopupEditAvatar.resetErrorInputs();
   popupEditAvatar.open();
 });
+//устанавливаем слушатели на попап удаления кары
+popupDelCard.setEventListeners();

@@ -3,13 +3,13 @@ class Card {
     item,
     selectorTemplate,
     idOwnerPage,
-    popupDelCard,
+    handlePopupDelCard,
     handleCardClick,
     handlerLike
   ) {
     this._name = item.name;
     this._link = item.link;
-    this._likes = item.likes;
+    this.likes = item.likes;
     this._idOwnerCard = item.owner._id;
     this._idOwnerPage = idOwnerPage;
     this._idCard = item._id;
@@ -21,8 +21,8 @@ class Card {
     this._likesOfNumber = this._sampleCard.querySelector('.card__numberOfLike');
     this._buttonDelCard = this._sampleCard.querySelector('.card__del-card');
     this._buttonLike = this._sampleCard.querySelector('.card__like');
-    this._likesOfNumber.textContent = this._likes.length;
-    this._popupDel = popupDelCard;
+    this._likesOfNumber.textContent = this.likes.length;
+    this._handlePopupDelCard = handlePopupDelCard;
     this._handlerLike = handlerLike;
   }
 
@@ -31,7 +31,7 @@ class Card {
     this._buttonLike.addEventListener('click', () => {
       this._handlerLike(this._checkOwnerLike(), this._idCard);
       this.renderButtonLike();
-      this._likesOfNumber.textContent = this._likes.length;
+      this._likesOfNumber.textContent = this.likes.length;
     });
 
     //устанавливаем слушатель для открытия попапа с картинкой
@@ -48,27 +48,18 @@ class Card {
     return this._template.cloneNode(true);
   }
 
-  // //отрисовать сердечко при установки лайка
-  // _renderButtonLikeClick() {
-  //   if (this._checkOwnerLike()) {
-  //     this._buttonLike.classList.remove('card__like_state_active');
-  //   } else {
-  //     this._buttonLike.classList.add('card__like_state_active');
-  //   }
-  // }
-
   //отрисовать сердечко
   renderButtonLike() {
     this._checkOwnerLike()
       ? this._buttonLike.classList.add('card__like_state_active')
       : this._buttonLike.classList.remove('card__like_state_active');
 
-    this._likesOfNumber.textContent = this._likes.length;
+    this._likesOfNumber.textContent = this.likes.length;
   }
 
   //проверить есть ли лайк от хозяина страници
   _checkOwnerLike() {
-    return this._likes.some((ownerLike) => {
+    return this.likes.some((ownerLike) => {
       return ownerLike._id === this._idOwnerPage;
     });
   }
@@ -77,7 +68,7 @@ class Card {
   _setButtonDeleteCard() {
     if (this._idOwnerCard === this._idOwnerPage) {
       this._buttonDelCard.addEventListener('click', (evt) => {
-        this._popupDel.open(this._idCard, evt.target.parentNode);
+        this._handlePopupDelCard(this._idCard, evt.target.parentNode);
       });
     } else {
       this._buttonDelCard.remove('card__del-card');
