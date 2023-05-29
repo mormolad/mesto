@@ -42,10 +42,10 @@ const popupAddCard = new PopupWithForm(
           res.owner._id
         );
         cardsContainer.addItem(card);
+        popupAddCard.close();
       })
       .catch((err) => console.log(`Ошибка.....: ${err}`))
       .finally(() => {
-        popupAddCard.close();
         popupAddCard.renderButton(false);
       });
   }
@@ -57,10 +57,10 @@ const popupEditAvatar = new PopupWithForm('#popup-add-new-avatar', (link) => {
     .setAvatar(link.inputURLAvatar)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
+      popupEditAvatar.close();
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(() => {
-      popupEditAvatar.close();
       popupEditAvatar.renderButton(false);
     });
 });
@@ -87,15 +87,15 @@ const popupEditUser = new PopupWithForm(
     popupEditUser.renderButton(true);
     api
       .setUserData({ name: inputUserName, about: inputUserEmployment })
-      .then(
+      .then(() => {
         userInfo.setUserInfo({
           name: inputUserName,
           employment: inputUserEmployment,
-        })
-      )
+        });
+        popupEditUser.close();
+      })
       .catch((err) => console.log(`Ошибка.....: ${err}`))
       .finally(() => {
-        popupEditUser.close();
         popupEditUser.renderButton(false);
       });
   }
