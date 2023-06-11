@@ -9,7 +9,7 @@
 - CSS
 - JavaScript
 - webpack
-
+---
 ### Адрес проекта
 
 https://mormolad.github.io/mesto/
